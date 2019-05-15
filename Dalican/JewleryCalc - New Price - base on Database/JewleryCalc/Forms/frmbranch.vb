@@ -13,7 +13,7 @@ Public Class frmbranch
 
         lv.SubItems.Add(txtBranchname.Text)
         txtBranchname.Clear()
-
+        txtbranchcode.Clear()
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnsave.Click

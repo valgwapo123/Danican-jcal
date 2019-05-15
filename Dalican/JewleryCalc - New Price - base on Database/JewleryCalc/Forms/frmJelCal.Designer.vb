@@ -131,7 +131,7 @@ Partial Class frmJelCal
         'btnGenerate
         '
         Me.btnGenerate.Font = New System.Drawing.Font("Forte", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGenerate.Location = New System.Drawing.Point(87, 31)
+        Me.btnGenerate.Location = New System.Drawing.Point(87, 32)
         Me.btnGenerate.Name = "btnGenerate"
         Me.btnGenerate.Size = New System.Drawing.Size(75, 35)
         Me.btnGenerate.TabIndex = 2
