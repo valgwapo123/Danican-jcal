@@ -164,10 +164,6 @@
         btnSave.Text = "&Update"
     End Sub
 
-    Private Sub lvList_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles lvList.KeyPress
-
-    End Sub
-
     Private Sub lvList_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvList.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnSelect.PerformClick()
@@ -185,6 +181,7 @@
         Else
             loadbarcode_list()
         End If
-      
+
     End Sub
+
 End Class
