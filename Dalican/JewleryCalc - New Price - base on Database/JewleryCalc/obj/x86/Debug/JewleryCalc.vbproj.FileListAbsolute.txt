@@ -32,3 +32,4 @@ C:\Users\Fujimura\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price 
 C:\Users\Fujimura\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbproj.CoreCompileInputs.cache
 C:\Users\Fujimura\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbproj.CopyComplete
 C:\Users\Fujimura\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.frmBarcodeList.resources
+C:\Users\Fujimura\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\sample may 20.xlsx
