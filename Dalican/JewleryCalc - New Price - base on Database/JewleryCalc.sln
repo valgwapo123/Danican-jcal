@@ -1,7 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "JewleryCalc", "JewleryCalc\JewleryCalc.vbproj", "{3BDEC24D-4AF9-448C-9DCA-8D458AC41015}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D61F60E2-CA52-4A77-BA5A-97279714BD68}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\Desktop\sample may 20.xlsx = ..\..\..\..\..\Desktop\sample may 20.xlsx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9EE08A67-9F80-452A-BCA3-C726FB60AC53}
 	EndGlobalSection
 EndGlobal
