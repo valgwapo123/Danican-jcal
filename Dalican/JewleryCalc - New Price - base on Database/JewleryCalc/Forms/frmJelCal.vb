@@ -119,9 +119,6 @@ Public Class frmJelCal
                 tmpKarats = .ParseKarat(oSheet.Cells(cnt, 3).value)
                 tmpgrams = .ParseGrams(oSheet.Cells(cnt, 3).value)
 
-                Dim isBrandnew As Boolean = False
-                Dim isWedding As Boolean = False
-                Dim isProposal As Boolean = False
                 Dim isSP_Auction As Boolean = False
 
                 'With stone Auction
@@ -147,7 +144,7 @@ Public Class frmJelCal
 
                                 Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
                                 Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
 
                                 SalePrice = (a * tmpgrams) * 2
                                 GoTo SalePriceHere
@@ -158,7 +155,7 @@ Public Class frmJelCal
 
                                 Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                                 Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
 
                                 SalePrice = (a * tmpgrams) * 2
                                 GoTo SalePriceHere
@@ -174,7 +171,7 @@ Public Class frmJelCal
 
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
 
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
@@ -182,7 +179,7 @@ Public Class frmJelCal
 
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
 
                             SalePrice = (a * tmpgrams) * 2
 
@@ -205,7 +202,7 @@ Public Class frmJelCal
                             tmpKarats = 18
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' OR TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
 
                             SalePrice = (a * tmpgrams) * 2
                         End If
@@ -225,7 +222,7 @@ Public Class frmJelCal
 
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' OR TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
                             SalePrice = (a * tmpgrams) * 2
                         End If
                         GoTo SalePriceHere
@@ -284,13 +281,13 @@ brandnewnotspecial:
                 If tmpKarats = 18 Then
                     Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='N'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                     Dim ds As DataSet = LoadSQL(mySql)
-                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                    Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
                     SalePrice = (a * tmpgrams) * 2
                 Else
                     tmpKarats = 21
                     Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='N'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                     Dim ds As DataSet = LoadSQL(mySql)
-                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                    Dim a As Double = ds.Tables(0).Rows(0).Item("PRICE")
                     SalePrice = (a * tmpgrams) * 2
 
                 End If

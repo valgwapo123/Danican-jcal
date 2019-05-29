@@ -3,7 +3,9 @@
     Private MainTable As String = "tblClass"
 
 #Region "Properties"
+
     Private _ID As Integer
+
     Public Property ID() As Integer
         Get
             Return _ID
@@ -14,6 +16,7 @@
     End Property
 
     Private _CatID As Integer
+
     Public Property CatID() As Integer
         Get
             Return _CatID
@@ -24,6 +27,7 @@
     End Property
 
     Private _Class As String
+
     Public Property CLassificaton() As String
         Get
             Return _Class
@@ -34,6 +38,7 @@
     End Property
 
     Private _Price As Double
+
     Public Property Price() As Double
         Get
             Return _Price
@@ -42,7 +47,9 @@
             _Price = value
         End Set
     End Property
+
     Private _branchid As Integer
+
     Public Property branchid() As Integer
         Get
             Return _branchid
@@ -52,10 +59,10 @@
         End Set
     End Property
 
-
 #End Region
 
 #Region "Procedures and Functions"
+
     Public Sub Load_Class_row(ByVal dr As DataRow)
         With dr
             _ID = .Item("ClassID")
@@ -90,7 +97,7 @@
             .Item("BRANCH_ID") = frmJelCal.branchid
         End With
         ds.Tables(MainTable).Rows.Add(dsNewRow)
-        database.SaveEntry(ds)
+        SaveEntry(ds)
     End Sub
 
     Public Sub Update()
@@ -103,12 +110,12 @@
                 .Item("Class") = _Class
                 .Item("Price") = _Price
             End With
-            database.SaveEntry(ds, False)
+            SaveEntry(ds, False)
         Else
             Dim dsNewRow As DataRow
             dsNewRow = ds.Tables(0).NewRow
             With dsNewRow
-               .Item("KaratID") = _CatID
+                .Item("KaratID") = _CatID
                 .Item("Class") = _Class
                 .Item("Price") = _Price
             End With
