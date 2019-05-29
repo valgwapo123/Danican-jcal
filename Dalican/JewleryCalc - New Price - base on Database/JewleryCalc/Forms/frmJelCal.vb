@@ -14,7 +14,7 @@ Public Class frmJelCal
 
     Dim SalePrice As Double = 0.0
 
-    Dim isOld As Boolean = False
+    Private isOld As Boolean = False
 
     Private Sub btnBrowse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBrowse.Click
         ofdJeltmp.ShowDialog()
@@ -228,7 +228,7 @@ Public Class frmJelCal
                         GoTo SalePriceHere
                     End If
                 Next
-
+                tmpcls = TmpBarCode
                 If TmpBarCode.Contains("BN") Then
                     tmpcls = "N"
                     GoTo Gohere
@@ -296,14 +296,13 @@ brandnewnotspecial:
 
 Gohere:
 
-                Dim recCnt2 As Single = 0
                 If tmpKarats = 0.0 Then
                     MsgBox("Description '" & oSheet.Cells(cnt, 3).value & "' is not valid, unable to parse.", MsgBoxStyle.Critical, "Error")
 
                     With oSheet
                         oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
                         oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
-                        oSheet1.Cells(cnt, 3) = "UNKNOWN"
+                        oSheet1.Cells(cnt, 3) = oSheet.Cells(cnt, 10).value
                         oSheet1.Cells(cnt, 4) = "UNKNOWN"
                         oSheet1.Cells(cnt, 5) = "UNKNOWN"
                         oSheet1.Cells(cnt, 6) = "UNKNOWN"
@@ -465,7 +464,7 @@ SalePriceHere:
                     With oSheet
                         oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
                         oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
-                        oSheet1.Cells(cnt, 3) = ""
+                        oSheet1.Cells(cnt, 3) = oSheet.Cells(cnt, 10).value
                         oSheet1.Cells(cnt, 4) = oSheet.Cells(cnt, 12).value
                         oSheet1.Cells(cnt, 5) = ""
                         oSheet1.Cells(cnt, 6) = "PIECE"

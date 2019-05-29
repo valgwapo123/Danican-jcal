@@ -1,8 +1,11 @@
 ﻿Public Class BNJewelry
-    Dim tbl As String = "tblbarcode"
+    ReadOnly tbl As String = "tblbarcode"
     Dim mysql As String = String.Empty
+
 #Region "Propertiers  and Variables"
+
     Private _id As Integer
+
     Public Property ID() As Integer
         Get
             Return _id
@@ -13,6 +16,7 @@
     End Property
 
     Private _Barcode As String
+
     Public Property Barcode() As String
         Get
             Return _Barcode
@@ -23,6 +27,7 @@
     End Property
 
     Private _Category As String
+
     Public Property Category() As String
         Get
             Return _Category
@@ -33,6 +38,7 @@
     End Property
 
     Private _IsSpecial As Boolean
+
     Public Property IsSpecial() As Boolean
         Get
             Return _IsSpecial
@@ -49,6 +55,7 @@
 #End Region
 
 #Region "Functions and Procedures"
+
     Public Sub load_Barcodes(ByVal idx As Integer)
         mysql = "select * from " & tbl & "  where id =" & idx
         Dim ds As DataSet = LoadSQL(mysql, tbl)
@@ -72,7 +79,6 @@
         End With
     End Sub
 
-
     Friend Sub loadSpecial()
         mysql = "select * from " & tbl & "  where isSpecial =1"
         Dim ds As DataSet = LoadSQL(mysql, tbl)
@@ -87,7 +93,6 @@
             barcode_col.Add(_Barcode)
         Next
     End Sub
-
 
     Friend Sub loadAllBarcode()
         mysql = "select * from " & tbl & " where category <>'SP AUCTION' AND category <> 'PROPOSAL RING' and category <> 'WEDDING'"
@@ -130,9 +135,6 @@
                 .Item("isSpecial") = IIf(_IsSpecial, 1, 0)
             End With
             database.SaveEntry(ds, False)
-
-
-
         Else
             Dim dsnewrow As DataRow
             dsnewrow = ds.Tables(0).NewRow
@@ -342,5 +344,7 @@
         End If
         Return False
     End Function
+
 #End Region
+
 End Class

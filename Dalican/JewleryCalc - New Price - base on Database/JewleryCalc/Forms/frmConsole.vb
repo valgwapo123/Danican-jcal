@@ -27,10 +27,9 @@
     Private Sub BtnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSave.Click
         If BtnSave.Text = "&Save" Then
             save()
-          
         Else
             UpdatePrice()
-           
+
         End If
     End Sub
 
@@ -89,7 +88,7 @@
 
                 .Update()
             End With
-           
+
         Next
         lvList.Items.Clear() : txtCategory.Clear() : txtKarat.Clear() : BtnSave.Text = "&Save"
         MsgBox("Successfully updated.", MsgBoxStyle.Information)
@@ -103,7 +102,7 @@
         Return True
     End Function
 
-    Private Sub lvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvList.DoubleClick
+    Private Sub lvList_DoubleClick(ByVal sender As Object, ByVal e As EventArgs) Handles lvList.DoubleClick
         If lvList.SelectedItems.Count = 0 Then Exit Sub
 
         txtClass.Text = lvList.SelectedItems(0).SubItems(1).Text
@@ -111,7 +110,7 @@
         btnAdd.Text = "&Update"
     End Sub
 
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+    Private Sub btnAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAdd.Click
         If txtClass.Text = "" Then Exit Sub : If txtPrice.Text = "" Then Exit Sub
 
         If btnAdd.Text = "&Add" Then
@@ -125,15 +124,16 @@
         btnAdd.Text = "&Add" : txtPrice.Clear() : txtClass.Clear()
     End Sub
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub lvList_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvList.SelectedIndexChanged
+    Private Sub LvList_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvList.SelectedIndexChanged
 
     End Sub
 
     Private Sub frmConsole_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
     End Sub
+
 End Class
