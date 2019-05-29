@@ -7,8 +7,6 @@ Public Class frmbranch
 
         Dim lv As ListViewItem = lvlbranch.Items.Add(0)
 
-
-
         lv.SubItems.Add(txtbranchcode.Text)
 
         lv.SubItems.Add(txtBranchname.Text)
@@ -80,7 +78,7 @@ Public Class frmbranch
 
             pbStatus.Value = cnt
             Application.DoEvents()
-            lblStatus.Text = String.Format("{0}%", ((pbStatus.Value / pbStatus.Maximum) * 100).ToString("F2"))
+            lblStatus.Text = String.Format("{0}%", (pbStatus.Value / pbStatus.Maximum * 100).ToString("F2"))
         Next
         Me.Enabled = True
 
@@ -91,4 +89,5 @@ Public Class frmbranch
 
         MsgBox("Item Loaded", MsgBoxStyle.Information)
     End Sub
+
 End Class

@@ -3,9 +3,9 @@
     Dim tmpcat As Category
     Dim selectedSchemeDetails As Price
     Private fromOtherForm As Boolean = False
-    Private frmOrig As formSwitch.FormName
+    Private frmOrig As FormName
 
-    Friend Sub SearchSelect(ByVal src As String, ByVal frmOrigin As formSwitch.FormName)
+    Friend Sub SearchSelect(ByVal src As String, ByVal frmOrigin As FormName)
         fromOtherForm = True
         txtSearch.Text = src
         frmOrig = frmOrigin
@@ -18,7 +18,6 @@
             btnSearch.PerformClick()
         End If
     End Sub
-
 
     Private Sub LoadClass()
         Dim mySql As String = "SELECT * FROM tblKarat ORDER BY tblKarat.CATEGORY  "
@@ -35,6 +34,7 @@
     Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
         searchItem()
     End Sub
+
     Private Sub searchItem()
         If txtSearch.Text = "" Then Exit Sub
         Dim secured_str As String = txtSearch.Text
@@ -65,7 +65,6 @@
         Next
     End Sub
 
-
     Private Sub lvList_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvList.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnSelect.PerformClick()
@@ -86,17 +85,12 @@
     Private Sub btnSelect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelect.Click
         If lvList.SelectedItems.Count <= 0 Then Exit Sub
 
-
-
-
         Dim catid As Integer
         catid = lvList.FocusedItem.Text
         Console.WriteLine("Cat ID: " & catid)
 
         tmpcat = New Category
 
-
-     
         tmpcat.LoadCat(catid, frmJelCal.branchid)
         frmConsole.catID = catid
 
@@ -119,4 +113,5 @@
         frmConsole.Show()
         Me.Close()
     End Sub
+
 End Class

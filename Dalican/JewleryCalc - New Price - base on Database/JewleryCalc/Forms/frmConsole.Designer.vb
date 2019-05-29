@@ -270,9 +270,9 @@ Partial Class frmConsole
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents BtnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Private WithEvents ShapeContainer1 As PowerPacks.ShapeContainer
+    Private WithEvents LineShape1 As PowerPacks.LineShape
+    Private WithEvents LineShape2 As PowerPacks.LineShape
 End Class

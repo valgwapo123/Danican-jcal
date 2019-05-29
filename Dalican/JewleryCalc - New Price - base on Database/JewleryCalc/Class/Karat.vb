@@ -1,12 +1,11 @@
-﻿
-Public Class Karat
+﻿Public Class Karat
     Private MainTable As String = "tblkarat"
     Private SubTable As String = "tblclass"
-
 
 #Region "Properties"
 
     Private _KaratID As Integer
+
     Public Property KaratID() As Integer
         Get
             Return _KaratID
@@ -17,6 +16,7 @@ Public Class Karat
     End Property
 
     Private _Karat As String
+
     Public Property Karat() As String
         Get
             Return _Karat
@@ -27,6 +27,7 @@ Public Class Karat
     End Property
 
     Private _Category As String
+
     Public Property Category() As String
         Get
             Return _Category
@@ -36,8 +37,8 @@ Public Class Karat
         End Set
     End Property
 
-
     Private _tmpClass As ColClass
+
     Public Property TmpClass() As ColClass
         Get
             Return _tmpClass
@@ -50,6 +51,7 @@ Public Class Karat
 #End Region
 
 #Region "Functions and Procedures"
+
     Public Sub LoadKarat(ByVal Category As String, ByVal Karat As String)
         Dim mySql As String = String.Format("SELECT * FROM " & MainTable & " WHERE CATEGORY = '{0}' AND KARAT ='{1}'", Category, Karat)
         Dim ds As DataSet = LoadSQL(mySql, MainTable)
@@ -67,7 +69,7 @@ Public Class Karat
         End With
 
         ' Load class
-        mySql = String.Format("SELECT * FROM {0} WHERE KaratID = {1} ORDER BY ClassID", SubTable, _KaratID)
+        mySql = $"SELECT * FROM {SubTable } WHERE KaratID = {_KaratID } ORDER BY ClassID"
         ds.Clear()
         ds = LoadSQL(mySql, SubTable)
 
@@ -105,7 +107,6 @@ Public Class Karat
         Next
     End Sub
 
-
     Friend Function ParseCategory(ByVal itemcode As String, ByVal BarcodeParse As String, ByVal itmGroup As String, Optional ByVal cls As String = "")
 
         Dim category
@@ -115,14 +116,13 @@ Public Class Karat
         Dim bnjAllBarcodes As New BNJewelry
         bnjAllBarcodes.loadAllBarcode()
 
-        'Wedding 
+        'Wedding
         Dim wdSpecial As New BNJewelry
         wdSpecial.loadWedding_NotSpecial()
 
-        'Proposal 
+        'Proposal
         Dim ProposalRing_Special As New BNJewelry
         ProposalRing_Special.loadPROPOSALring_NotSpecial()
-
 
         If itmGroup = "BRAND NEW JWL" Then
             For Each Str As String In bnjAllBarcodes.load_all_barcode
@@ -228,7 +228,6 @@ Public Class Karat
             Description = Description & "G"
         End If
 
-
         Description = CleanDescription(Description)
 
         If Not Description.Contains("KT") Then
@@ -256,7 +255,6 @@ Public Class Karat
 
                 Return Gram
             End If
-
         Else
             Gram = Description.Substring(0, Description.LastIndexOf("G"))
 
@@ -285,6 +283,7 @@ Public Class Karat
 
         Return True
     End Function
+
     'Public Sub Save_ItemClass()
     '    Dim mySql As String = String.Format("SELECT * FROM tblItem WHERE ItemClass = '{0}'", _itemClassName)
     '    Dim ds As DataSet = LoadSQL(mySql, MainTable)
@@ -312,7 +311,6 @@ Public Class Karat
     '    ds.Tables(0).Rows.Add(dsNewRow)
     '    database.SaveEntry(ds)
 
-
     '    mySql = "SELECT * FROM tblItem ORDER BY ItemID DESC ROWS 1"
     '    ds = LoadSQL(mySql, MainTable)
     '    _itemID = ds.Tables(MainTable).Rows(0).Item("ItemID")
@@ -322,8 +320,6 @@ Public Class Karat
     '        ItemSpec.SaveSpecs()
     '    Next
     'End Sub
-
-    
 
     'Public Sub Update()
     '    Dim mySql As String = String.Format("SELECT * FROM {0} WHERE ItemID = {1}", MainTable, _itemID)
@@ -359,7 +355,6 @@ Public Class Karat
     '    End If
     '    Return ds.Tables(0).Rows(0).Item("ItemID")
     'End Function
-
 
 #End Region
 
