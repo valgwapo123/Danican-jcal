@@ -235,6 +235,7 @@
         For Each dr As DataRow In ds.Tables(0).Rows
             loadbyRow(dr)
             barcode_col.Add(_Barcode)
+
         Next
     End Sub
 
@@ -295,6 +296,7 @@
         For Each dr As DataRow In ds.Tables(0).Rows
             loadbyRow(dr)
             barcode_col.Add(_Barcode)
+
         Next
     End Sub
 
