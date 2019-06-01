@@ -157,6 +157,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmJelCal.resx">
       <DependentUpon>frmJelCal.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmJList.resx">
       <DependentUpon>frmJList.vb</DependentUpon>
