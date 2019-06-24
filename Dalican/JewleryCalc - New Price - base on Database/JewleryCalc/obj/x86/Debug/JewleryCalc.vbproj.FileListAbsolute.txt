@@ -12,3 +12,4 @@ C:\Users\MISGWAPOHON\Desktop\JewleryCalc - New Price - base on Database\JewleryC
 C:\Users\MISGWAPOHON\Desktop\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.exe
 C:\Users\MISGWAPOHON\Desktop\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.xml
 C:\Users\MISGWAPOHON\Desktop\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.pdb
+C:\Users\MISGWAPOHON\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\JELCAL.FDB
