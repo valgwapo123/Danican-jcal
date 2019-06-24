@@ -447,17 +447,13 @@ auctionprewon:
 
 
                     If tmpgrams < 1 Then
-                        If tmpKarats = 18 Then
+                        If tmpKarats = 18 Or tmpKarats = 21 Or tmpKarats = 14 Or tmpKarats = 12 Or tmpKarats = 16 Then
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
                             Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
                             SalePrice = (a * tmpgrams) * 2
-                        Else
-                            tmpKarats = 21
-                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "   AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-                            Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-                            SalePrice = (a * tmpgrams) * 2
+
+
 
                         End If
                         GoTo SalePriceHere
