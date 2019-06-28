@@ -391,8 +391,31 @@ brandnewnotspecial:
                         Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
                         SalePrice = (a * tmpgrams) * 2
                         GoTo SalePriceHere
-                    Else
-                        tmpKarats = 21
+                    ElseIf tmpKarats = 21 Then
+                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+                        Dim ds As DataSet = LoadSQL(mySql)
+                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                        SalePrice = (a * tmpgrams) * 2
+                        GoTo SalePriceHere
+                    ElseIf tmpKarats = 12 Then
+                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+                        Dim ds As DataSet = LoadSQL(mySql)
+                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                        SalePrice = (a * tmpgrams) * 2
+                        GoTo SalePriceHere
+                    ElseIf tmpKarats = 14 Then
+                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+                        Dim ds As DataSet = LoadSQL(mySql)
+                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                        SalePrice = (a * tmpgrams) * 2
+                        GoTo SalePriceHere
+                    ElseIf tmpKarats = 16 Then
+                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+                        Dim ds As DataSet = LoadSQL(mySql)
+                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                        SalePrice = (a * tmpgrams) * 2
+                        GoTo SalePriceHere
+                    ElseIf tmpKarats = 22 Then
                         Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' and TBLCLASS.BRANCH_ID=  " & branchid & ""
                         Dim ds As DataSet = LoadSQL(mySql)
                         Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
