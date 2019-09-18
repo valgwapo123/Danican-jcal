@@ -1,7 +1,7 @@
 ﻿Public Class frmBarcodeList
     Dim idx As Integer = 0
 
-    Private Sub frmBarcodeList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmBarcodeList_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         txtCategory.Text = "Brand New"
 
         loadbarcode_list()
@@ -58,7 +58,7 @@
         btnSave.Text = "&Save"
     End Sub
 
-    Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
+    Private Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
         If lvaddbardcode.Items.Count = 0 Then Exit Sub
 
         If btnSave.Text = "&Save" Then
@@ -75,7 +75,7 @@
 
     End Sub
 
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+    Private Sub btnAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAdd.Click
         If txtBarcode.Text = "" Then Exit Sub
 
         If btnAdd.Text = "+" Then
@@ -102,7 +102,7 @@
         btnAdd.Text = "+"
     End Sub
 
-    Private Sub lvaddbardcode_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvaddbardcode.DoubleClick
+    Private Sub lvaddbardcode_DoubleClick(ByVal sender As Object, ByVal e As EventArgs) Handles lvaddbardcode.DoubleClick
         If lvaddbardcode.SelectedItems.Count = 0 Then Exit Sub
 
         idx = lvaddbardcode.SelectedItems(0).SubItems(0).Text
@@ -140,7 +140,7 @@
         End With
     End Sub
 
-    Private Sub lvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvList.DoubleClick, lvaddbardcode.SelectedIndexChanged
+    Private Sub lvList_DoubleClick(ByVal sender As Object, ByVal e As EventArgs) Handles lvList.DoubleClick, lvaddbardcode.SelectedIndexChanged
         If lvList.SelectedItems.Count = 0 Then Exit Sub
         selectbarcode()
     End Sub
@@ -164,21 +164,21 @@
         btnSave.Text = "&Update"
     End Sub
 
-    Private Sub lvList_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles lvList.KeyPress
+    Private Sub lvList_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles lvList.KeyPress
 
     End Sub
 
-    Private Sub lvList_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvList.KeyDown
+    Private Sub lvList_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles lvList.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnSelect.PerformClick()
         End If
     End Sub
 
-    Private Sub btnSelect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelect.Click
+    Private Sub btnSelect_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSelect.Click
         selectbarcode()
     End Sub
 
-    Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
+    Private Sub btnSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSearch.Click
         If txtSearch.Text <> "" Then
             Dim mysql As String = "select * from tblbarcode where Lower(barcode) like Lower('%" & txtSearch.Text & "%')"
             loadbarcode_list(mysql)
@@ -188,7 +188,7 @@
       
     End Sub
 
-    Private Sub lvaddbardcode_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub lvaddbardcode_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
 
     End Sub
 End Class

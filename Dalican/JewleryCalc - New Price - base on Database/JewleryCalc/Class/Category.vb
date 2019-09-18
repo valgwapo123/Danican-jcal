@@ -130,7 +130,7 @@
             .Item("karat") = _Karat
         End With
         ds.Tables(MainTable).Rows.Add(dsNewRow)
-        database.SaveEntry(ds)
+        SaveEntry(ds)
 
         mySql = String.Format("SELECT * FROM {0} ORDER BY KaratID DESC ROWS 1", MainTable)
         ds = LoadSQL(mySql, MainTable)
@@ -155,7 +155,7 @@
 
         End With
         ds.Tables(BRANCTABLE).Rows.Add(dsNewRow)
-        database.SaveEntry(ds)
+        SaveEntry(ds)
 
 
     End Sub
@@ -174,7 +174,7 @@
             .Item("karat") = _Karat
         End With
 
-        database.SaveEntry(ds, False)
+        SaveEntry(ds, False)
 
     End Sub
 #End Region

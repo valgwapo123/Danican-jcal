@@ -1,6 +1,6 @@
 ﻿Public Class frmmainmenu
 
-    Private Sub frmmainmenu_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmmainmenu_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         LOADBRANCH()
     End Sub
     Private Sub LOADBRANCH()
@@ -15,7 +15,7 @@
         Next
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
         If cmbbranch.Text = "" Then Exit Sub
 
         frmJelCal.Show()
@@ -23,6 +23,6 @@
         frmJelCal.BRANCH.Text = cmbbranch.Text
         frmJelCal.SEARCHIDBRANCH()
         frmJelCal.Focus()
-        Me.Hide()
+        Hide()
     End Sub
 End Class

@@ -3,15 +3,15 @@
     Dim tmpcat As Category
     Dim selectedSchemeDetails As Price
     Private fromOtherForm As Boolean = False
-    Private frmOrig As formSwitch.FormName
+    Private frmOrig As FormName
 
-    Friend Sub SearchSelect(ByVal src As String, ByVal frmOrigin As formSwitch.FormName)
+    Friend Sub SearchSelect(ByVal src As String, ByVal frmOrigin As FormName)
         fromOtherForm = True
         txtSearch.Text = src
         frmOrig = frmOrigin
     End Sub
 
-    Private Sub frmJList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmJList_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         LoadClass()
         txtSearch.Text = IIf(txtSearch.Text <> "", txtSearch.Text, "")
         If txtSearch.Text <> "" Then
@@ -32,7 +32,7 @@
         Next
     End Sub
 
-    Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
+    Private Sub btnSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSearch.Click
         searchItem()
     End Sub
     Private Sub searchItem()
@@ -66,24 +66,24 @@
     End Sub
 
 
-    Private Sub lvList_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvList.KeyDown
+    Private Sub lvList_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles lvList.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnSelect.PerformClick()
         End If
     End Sub
 
-    Private Sub txtSearch_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyDown
+    Private Sub txtSearch_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles txtSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnSearch.PerformClick()
         End If
     End Sub
 
-    Private Sub frmJList_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
+    Private Sub frmJList_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles MyBase.FormClosed
         LoadClass()
         txtSearch.Text = ""
     End Sub
 
-    Private Sub btnSelect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelect.Click
+    Private Sub btnSelect_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSelect.Click
         If lvList.SelectedItems.Count <= 0 Then Exit Sub
 
 
@@ -117,6 +117,6 @@
 
         frmConsole.LoadCategory(tmpcat)
         frmConsole.Show()
-        Me.Close()
+        Close()
     End Sub
 End Class

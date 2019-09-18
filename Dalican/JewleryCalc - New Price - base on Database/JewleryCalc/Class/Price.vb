@@ -90,7 +90,7 @@
             .Item("BRANCH_ID") = frmJelCal.branchid
         End With
         ds.Tables(MainTable).Rows.Add(dsNewRow)
-        database.SaveEntry(ds)
+        SaveEntry(ds)
     End Sub
 
     Public Sub Update()
@@ -103,7 +103,7 @@
                 .Item("Class") = _Class
                 .Item("Price") = _Price
             End With
-            database.SaveEntry(ds, False)
+            SaveEntry(ds, False)
         Else
             Dim dsNewRow As DataRow
             dsNewRow = ds.Tables(0).NewRow
@@ -113,7 +113,7 @@
                 .Item("Price") = _Price
             End With
             ds.Tables(0).Rows.Add(dsNewRow)
-            database.SaveEntry(ds)
+            SaveEntry(ds)
         End If
     End Sub
 

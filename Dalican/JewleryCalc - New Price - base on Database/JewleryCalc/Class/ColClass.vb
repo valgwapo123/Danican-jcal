@@ -1,5 +1,5 @@
 ﻿Public Class ColClass
-    Inherits System.Collections.CollectionBase
+    Inherits CollectionBase
 
     Public ReadOnly Property Item(ByVal index As Integer) As Classes
         Get
@@ -20,7 +20,7 @@
         If index > Count - 1 Or index < 0 Then
             ' If no widget exists, a messagebox is shown and the operation is 
             ' cancelled.
-            System.Windows.Forms.MessageBox.Show("Index not valid!")
+            MessageBox.Show("Index not valid!")
         Else
             ' Invokes the RemoveAt method of the List object.
             List.RemoveAt(index)

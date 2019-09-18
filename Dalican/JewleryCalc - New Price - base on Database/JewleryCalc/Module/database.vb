@@ -120,7 +120,7 @@ Friend Module database
             Exit Sub
         End Try
 
-        System.Threading.Thread.Sleep(1000)
+        Threading.Thread.Sleep(1000)
     End Sub
 
 

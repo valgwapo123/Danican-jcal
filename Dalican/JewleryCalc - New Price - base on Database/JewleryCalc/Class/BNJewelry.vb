@@ -116,7 +116,7 @@
             .Item("isSpecial") = IIf(_IsSpecial, 1, 0)
         End With
         ds.Tables(0).Rows.Add(dsnewrow)
-        database.SaveEntry(ds)
+        SaveEntry(ds)
     End Sub
 
     Public Sub Updatebarcode()
@@ -129,7 +129,7 @@
                 .Item("Category") = _Category
                 .Item("isSpecial") = IIf(_IsSpecial, 1, 0)
             End With
-            database.SaveEntry(ds, False)
+            SaveEntry(ds, False)
 
 
 
@@ -142,7 +142,7 @@
                 .Item("isSpecial") = IIf(_IsSpecial, 1, 0)
             End With
             ds.Tables(0).Rows.Add(dsnewrow)
-            database.SaveEntry(ds)
+            SaveEntry(ds)
         End If
 
     End Sub
