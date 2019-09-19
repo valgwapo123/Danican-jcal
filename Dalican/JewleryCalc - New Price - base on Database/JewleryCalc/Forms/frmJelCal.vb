@@ -523,7 +523,7 @@ auctionprewon:
                                 'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                                 'Dim ds As DataSet = LoadSQL(mySql)
                                 'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-                                SalePrice = (2700 * tmpgrams) * 2
+                                SalePrice = (2800 * tmpgrams) * 2
                                 GoTo SalePriceHere
                             End If
 
