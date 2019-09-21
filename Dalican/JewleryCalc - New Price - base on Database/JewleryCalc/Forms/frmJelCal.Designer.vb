@@ -277,7 +277,7 @@ Partial Class frmJelCal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(562, 268)
+        Me.ClientSize = New System.Drawing.Size(552, 257)
         Me.ContextMenuStrip = Me.cms
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BRANCH)
