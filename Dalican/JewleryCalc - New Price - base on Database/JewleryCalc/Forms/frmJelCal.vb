@@ -27,7 +27,7 @@ Public Class frmJelCal
 
 
     Private Sub btnGenerate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerate.Click
-        If lblPath.Text = "File not yet" Then Exit Sub
+        'If lblPath.Text = "File not yet" Then Exit Sub
         SEARCHIDBRANCH()
         'Load ExcelF
         Dim oXL As New Excel.Application
@@ -197,6 +197,11 @@ Public Class frmJelCal
 
                     If TmpBarCode.Contains("JPN") Or TmpBarCode.Contains("JPCO") Then
 
+                        If tmpgrams < 1.51 Then
+                            SalePrice = (2800 * tmpgrams) * 2
+
+                            GoTo SalePriceHere
+                        Else
 
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Japan'  and TBLCLASS.CLASS='" & "A" & "' and TBLCLASS.BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
@@ -206,6 +211,7 @@ Public Class frmJelCal
 
                             GoTo SalePriceHere
 
+                        End If
 
 
                     Else
@@ -233,12 +239,11 @@ Public Class frmJelCal
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
                         Else
+                            Dim test As String = oSheet.Cells(cnt, 1).value
                             tmpKarats = 21
-                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-                            Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-                            SalePrice = (a * tmpgrams) * 2
+
+                            SalePrice = (3200 * tmpgrams) * 2
                             GoTo SalePriceHere
                         End If
 
@@ -271,7 +276,7 @@ Public Class frmJelCal
 
                 ElseIf TmpBarCode.Contains("PSPIL") Or TmpBarCode.Contains("PSPJT") Or TmpBarCode.Contains("PSPCO") Or TmpBarCode.Contains("PIL") Or TmpBarCode.Contains("PJT") Then
                     If chkProWedGensan.Checked Then
-                        SalePrice = (2850 * tmpgrams) * 2
+                        SalePrice = (2950 * tmpgrams) * 2
                         GoTo SalePriceHere
                     Else
                         Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
@@ -304,7 +309,7 @@ Public Class frmJelCal
 
                             SalePrice = (a * tmpgrams) * 2
                         End If
-
+                        GoTo SalePriceHere
 
                     End If
                     If TmpBarCode.Contains("WSP") Or TmpBarCode.Contains("WCO") Or TmpBarCode.Contains("WIL") Then
@@ -318,6 +323,7 @@ Public Class frmJelCal
                             Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
                             SalePrice = (a * tmpgrams) * 2
+                            GoTo SalePriceHere
                         End If
 
 
@@ -542,18 +548,21 @@ auctionprewon:
                                 GoTo SalePriceHere
                             End If
                         ElseIf tmpKarats = 14 Then
-
-
-                            If chkProWedGensan.Checked Then
-                                SalePrice = (2100 * tmpgrams) * 2
+                           
+                            If tmpgrams < 1.51 Then
+                                SalePrice = (2350 * tmpgrams) * 2
                                 GoTo SalePriceHere
                             Else
-                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-                                Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                If chkProWedGensan.Checked Then
+                                    SalePrice = (2100 * tmpgrams) * 2
+                                    GoTo SalePriceHere
+                                Else
 
-                                SalePrice = (a * tmpgrams) * 2
-                                GoTo SalePriceHere
+
+                                    SalePrice = (2100 * tmpgrams) * 2
+                                    GoTo SalePriceHere
+                                End If
+
                             End If
                         End If
                     Else
@@ -598,7 +607,7 @@ auctionprewon:
                         End If
 
                     End If
-                
+
                 ElseIf TmpBarCode.Contains("SPP") Then
 
                     If tmpgrams < 1.51 Then
@@ -757,7 +766,7 @@ auctionprewon:
                                 GoTo SalePriceHere
                             End If
                             If chkProWedGensan.Checked And Subklass = "B" Then
-                                SalePrice = (2500 * tmpgrams) * 2
+                                SalePrice = (2600 * tmpgrams) * 2
                                 GoTo SalePriceHere
                             End If
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
@@ -812,7 +821,7 @@ auctionprewon:
                         Dim axxxx As String = Val(oSheet.Cells(cnt, 3).value)
                         GoTo SalePriceHere
                     End If
-                    End If
+                End If
 
 
 
