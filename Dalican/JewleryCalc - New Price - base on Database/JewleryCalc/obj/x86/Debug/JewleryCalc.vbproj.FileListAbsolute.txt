@@ -16,6 +16,7 @@ E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - b
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\JewleryCalc.exe
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\JewleryCalc.pdb
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\JewleryCalc.xml
+E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbprojAssemblyReference.cache
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.frmBarcodeList.resources
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.frmbranch.resources
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.frmConsole.resources
@@ -28,4 +29,6 @@ E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - b
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.exe
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.xml
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.pdb
-E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbprojAssemblyReference.cache
+E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\ClassLibrary1.dll
+E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\ClassLibrary1.pdb
+E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbproj.CopyComplete

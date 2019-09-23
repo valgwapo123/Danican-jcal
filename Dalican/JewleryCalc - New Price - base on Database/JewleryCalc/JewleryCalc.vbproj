@@ -191,6 +191,12 @@
   <ItemGroup>
     <Content Include="Custom-Icon-Design-Flatastic-9-Generate-tables.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
+      <Project>{87ee7ca8-c47b-4368-b93a-ea12bbc6faa3}</Project>
+      <Name>ClassLibrary1</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

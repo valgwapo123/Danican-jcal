@@ -1127,8 +1127,8 @@ SalePriceHere:
                 End If
 
                 pbstatus.Value = pbstatus.Value + 1
-                Application.DoEvents()
-                lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
+                'Application.DoEvents()
+                'lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
                 tmpcls = "" : isOld = False
             End With
         Next

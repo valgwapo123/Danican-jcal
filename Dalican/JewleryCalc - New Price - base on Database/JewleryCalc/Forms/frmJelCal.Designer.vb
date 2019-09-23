@@ -35,7 +35,6 @@ Partial Class frmJelCal
         Me.btnAddClass = New System.Windows.Forms.Button()
         Me.ofdJeltmp = New System.Windows.Forms.OpenFileDialog()
         Me.sfdPath = New System.Windows.Forms.SaveFileDialog()
-        Me.pbstatus = New System.Windows.Forms.ProgressBar()
         Me.lblstatus = New System.Windows.Forms.Label()
         Me.cms = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ShowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -48,6 +47,7 @@ Partial Class frmJelCal
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.BRANCH = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.pbstatus = New ClassLibrary1.TextProgressBar()
         Me.GroupBox1.SuspendLayout()
         Me.cms.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -156,13 +156,6 @@ Partial Class frmJelCal
         Me.sfdPath.DefaultExt = "xls"
         Me.sfdPath.Filter = "Excel File 2003|*.xls"
         '
-        'pbstatus
-        '
-        Me.pbstatus.Location = New System.Drawing.Point(13, 242)
-        Me.pbstatus.Name = "pbstatus"
-        Me.pbstatus.Size = New System.Drawing.Size(538, 15)
-        Me.pbstatus.TabIndex = 4
-        '
         'lblstatus
         '
         Me.lblstatus.AutoSize = True
@@ -171,6 +164,7 @@ Partial Class frmJelCal
         Me.lblstatus.Size = New System.Drawing.Size(38, 14)
         Me.lblstatus.TabIndex = 5
         Me.lblstatus.Text = "0.00%"
+        Me.lblstatus.Visible = False
         '
         'cms
         '
@@ -273,18 +267,30 @@ Partial Class frmJelCal
         Me.Label1.TabIndex = 14
         Me.Label1.Text = "BRANCH"
         '
+        'pbstatus
+        '
+        Me.pbstatus.CustomText = ""
+        Me.pbstatus.Location = New System.Drawing.Point(11, 240)
+        Me.pbstatus.Name = "pbstatus"
+        Me.pbstatus.ProgressColor = System.Drawing.Color.LightGreen
+        Me.pbstatus.Size = New System.Drawing.Size(539, 23)
+        Me.pbstatus.TabIndex = 15
+        Me.pbstatus.TextColor = System.Drawing.Color.Black
+        Me.pbstatus.TextFont = New System.Drawing.Font("Times New Roman", 11.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle))
+        Me.pbstatus.VisualMode = ClassLibrary1.ProgressBarDisplayMode.Percentage
+        '
         'frmJelCal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(552, 257)
         Me.ContextMenuStrip = Me.cms
+        Me.Controls.Add(Me.pbstatus)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BRANCH)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.lblstatus)
-        Me.Controls.Add(Me.pbstatus)
         Me.Controls.Add(Me.btnAddClass)
         Me.Controls.Add(Me.GroupBox1)
         Me.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -312,7 +318,6 @@ Partial Class frmJelCal
     Friend WithEvents btnAddClass As System.Windows.Forms.Button
     Friend WithEvents ofdJeltmp As System.Windows.Forms.OpenFileDialog
     Friend WithEvents sfdPath As System.Windows.Forms.SaveFileDialog
-    Friend WithEvents pbstatus As System.Windows.Forms.ProgressBar
     Friend WithEvents lblstatus As System.Windows.Forms.Label
     Friend WithEvents cms As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ShowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -329,5 +334,5 @@ Partial Class frmJelCal
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button2 As System.Windows.Forms.Button
-
+    Friend WithEvents pbstatus As ClassLibrary1.TextProgressBar
 End Class
