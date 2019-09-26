@@ -3,4 +3,3 @@ E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - b
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\ClassLibrary1\obj\Debug\ClassLibrary1.csproj.CoreCompileInputs.cache
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\ClassLibrary1\obj\Debug\ClassLibrary1.dll
 E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
-E:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\ClassLibrary1\obj\Debug\ClassLibrary1.csprojAssemblyReference.cache
