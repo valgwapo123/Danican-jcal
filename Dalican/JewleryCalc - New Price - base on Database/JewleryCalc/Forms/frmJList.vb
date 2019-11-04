@@ -119,4 +119,8 @@
         frmConsole.Show()
         Me.Close()
     End Sub
+
+    Private Sub lvList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvList.SelectedIndexChanged
+
+    End Sub
 End Class

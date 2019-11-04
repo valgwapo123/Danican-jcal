@@ -10,6 +10,7 @@ Public Class frmJelCal
     Dim tmpgrams As Double = 0.0
     Dim tmpcls As String
     Dim OLD As String
+    Dim checcck As String
 
     Dim SalePrice As Double = 0.0
 
@@ -27,6 +28,7 @@ Public Class frmJelCal
 
 
     Private Sub btnGenerate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerate.Click
+
         'If lblPath.Text = "File not yet" Then Exit Sub
         SEARCHIDBRANCH()
         'Load ExcelF
@@ -121,6 +123,8 @@ Public Class frmJelCal
                 tmpgrams = .ParseGrams(oSheet.Cells(cnt, 3).value)
                 Dim karatclass As String = oSheet.Cells(cnt, 13).value
                 Dim Subklass As String = oSheet.Cells(cnt, 14).value
+
+                checcck = oSheet.Cells(cnt, 2).value
                 Dim isBrandnew As Boolean = False
                 Dim isWedding As Boolean = False
                 Dim isProposal As Boolean = False
@@ -154,7 +158,7 @@ Public Class frmJelCal
 
                 'wedding proposal
 
-            
+
                 'Proposal package
 
 
@@ -276,7 +280,7 @@ Public Class frmJelCal
 
                 ElseIf TmpBarCode.Contains("PSPIL") Or TmpBarCode.Contains("PSPJT") Or TmpBarCode.Contains("PSPCO") Or TmpBarCode.Contains("PIL") Or TmpBarCode.Contains("PJT") Then
                     If chkProWedGensan.Checked Then
-                        SalePrice = (2950 * tmpgrams) * 2
+                        SalePrice = (3000 * tmpgrams) * 2
                         GoTo SalePriceHere
                     Else
                         Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
@@ -548,7 +552,7 @@ auctionprewon:
                                 GoTo SalePriceHere
                             End If
                         ElseIf tmpKarats = 14 Then
-                           
+
                             If tmpgrams < 1.51 Then
                                 SalePrice = (2350 * tmpgrams) * 2
                                 GoTo SalePriceHere
@@ -816,7 +820,7 @@ auctionprewon:
 
                             'CLASS B
                         ElseIf tmpKarats = 18 Then
-          
+
 
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
                             Dim ds As DataSet = LoadSQL(mySql)
@@ -828,9 +832,9 @@ auctionprewon:
                             Dim ds As DataSet = LoadSQL(mySql)
                             Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
                             SalePrice = (a * tmpgrams) * 2
-                            End If
-                            Dim axxxx As String = Val(oSheet.Cells(cnt, 3).value)
-                            GoTo SalePriceHere
+                        End If
+                        Dim axxxx As String = Val(oSheet.Cells(cnt, 3).value)
+                        GoTo SalePriceHere
                     End If
                 End If
 
@@ -871,6 +875,8 @@ Gohere:
 
                         If tmpKarats = 18 Then
                             If tmpgrams < 1.51 Then
+
+
                                 Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
                                 SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
                             Else
@@ -964,12 +970,14 @@ bradnewset:
                                                 Dim ds As DataSet = LoadSQL(mySql)
                                                 Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
                                                 SalePrice = (a * tmpgrams) * 2
+                                                GoTo SalePriceHere
                                             Else
                                                 tmpKarats = 21
                                                 Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set' and TBLCLASS.BRANCH_ID=  " & branchid & ""
                                                 Dim ds As DataSet = LoadSQL(mySql)
                                                 Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
                                                 SalePrice = (a * tmpgrams) * 2
+                                                GoTo SalePriceHere
                                             End If
                                         End If
 
@@ -994,7 +1002,7 @@ bradnewset:
                                     Dim ds As DataSet = LoadSQL(mySql)
                                     Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
                                     SalePrice = (a * tmpgrams) * 2
-
+                                    GoTo SalePriceHere
 
                                 Else
                                     tmpKarats = 21
@@ -1283,6 +1291,7 @@ unloadObj:
     Private Function getLess1GramPrice(ByVal krat As Integer, ByVal cl As String) As Double
         Dim mysql As String = "select * from tblkarat where category ='Auction - Less 1G' and karat =" & krat & "'"
         Dim ds As DataSet = LoadSQL(mysql, "tblkarat")
+        Dim a As String = checcck
 
         Dim idx As Integer = CInt(ds.Tables(0).Rows(0).Item(0))
 
