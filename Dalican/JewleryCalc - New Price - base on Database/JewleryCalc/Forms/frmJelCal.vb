@@ -237,7 +237,7 @@ Public Class frmJelCal
                     If TmpBarCode.StartsWith("WHM") Then
 
                         If chkProWedGensan.Checked Then
-                            SalePrice = (2900 * tmpgrams) * 2
+                            SalePrice = (3000 * tmpgrams) * 2
 
                         Else
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'   and TBLCLASS.BRANCH_ID=  " & branchid & ""
@@ -443,7 +443,7 @@ brandnewnotspecial:
                     Else
                         tmpKarats = 21
                         If chkProWedGensan.Checked Then
-                            SalePrice = (3200 * tmpgrams) * 2
+                            SalePrice = (3300 * tmpgrams) * 2
                             GoTo SalePriceHere
                         End If
                         'bah
@@ -478,7 +478,7 @@ brandnewnotspecial:
                         GoTo SalePriceHere
                     ElseIf tmpKarats = 21 Then
                         If chkProWedGensan.Checked Then
-                            SalePrice = (3000 * tmpgrams) * 2
+                            SalePrice = (3100 * tmpgrams) * 2
                             GoTo SalePriceHere
                         End If
                         Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
