@@ -303,7 +303,7 @@ Public Class frmJelCal
                     End If
                 End If
 
-                If TmpBarCode.StartsWith("SP") Then
+                If TmpBarCode.Contains("SP") Then
 
                     If tmpgrams < 1.51 Then
                         GoTo brandnewnotspecial
@@ -1069,7 +1069,7 @@ brandnewspecial:
 
                                     tmpKarats = 21
                                     If chkProWedGensan.Checked Then
-                                        SalePrice = (3100 * tmpgrams) * 2
+                                        SalePrice = (3200 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                     Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
