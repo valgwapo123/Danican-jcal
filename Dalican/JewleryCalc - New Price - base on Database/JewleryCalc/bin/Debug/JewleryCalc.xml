@@ -1,0 +1,80 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+JewleryCalc
+</name>
+</assembly>
+<members>
+<member name="M:JewleryCalc.database.dbOpen">
+	<summary>
+ This method shows the connection string of a database.
+ Also here we open the database.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:JewleryCalc.database.dbClose">
+	<summary>
+ This method is for closing after database was open here is the close.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:JewleryCalc.database.isReady">
+	<summary>
+ The database is ready to open.
+ </summary>
+	<returns>return false if the database is not ready.</returns>
+	<remarks></remarks>
+</member><member name="M:JewleryCalc.database.SaveEntry(System.Data.DataSet,System.Boolean)">
+	<summary>
+ Module 001
+ Save the Dataset to the database
+ </summary>
+	<param name="dsEntry">Database with Table Name as Database Table Name</param>
+	<returns>Boolean: Success Result</returns>
+	<remarks></remarks>
+</member><member name="M:JewleryCalc.database.LoadSQL(System.String,System.String)">
+	<summary>
+This function where the table load to dataset.
+ </summary>
+	<param name="mySql">mysql where the data pass by.</param>
+	<param name="tblName">tblName here is a variable that hold the data.</param>
+	<returns>return ds after reading the mysql data.</returns>
+	<remarks></remarks>
+</member><member name="M:JewleryCalc.database.LoadSQL_byDataReader(System.String)">
+	<summary>
+ This function is the declaration of odbccommand and odbcdatareader.
+ </summary>
+	<param name="mySql">mysql where the data pass</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:JewleryCalc.database.dbReaderOpen">
+	<summary>
+ The conStr here a variable that hold the connectionstring of the database.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:JewleryCalc.database.dbReaderClose">
+	<summary>
+ close the database.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:JewleryCalc.database">
+	<summary>
+ This module declare the connection of the database.
+ 
+ </summary>
+	<remarks></remarks>
+</member><member name="P:JewleryCalc.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:JewleryCalc.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:JewleryCalc.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>
