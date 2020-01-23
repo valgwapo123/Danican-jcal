@@ -228,7 +228,7 @@ Public Class frmJelCal
 
                 End If
                 ''WEDDING RING =======================================
-                If TmpBarCode.StartsWith("WJT") Or TmpBarCode.StartsWith("WHM") Or TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WIL") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("PCO") Then
+                If TmpBarCode.StartsWith("WJT") Or TmpBarCode.StartsWith("WHM") Or TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WIL") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("PCO") Or TmpBarCode.StartsWith("WJC") Then
                     tmpcls = "A"
 
 
@@ -249,7 +249,7 @@ Public Class frmJelCal
                         GoTo SalePriceHere
 
                     End If
-                    If TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("WIL") Then
+                    If TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("WIL") Or TmpBarCode.StartsWith("WJC") Then
 
                         If chkProWedGensan.Checked Then
                             SalePrice = (3000 * tmpgrams) * 2
@@ -288,8 +288,9 @@ Public Class frmJelCal
 
                 End If
                 ''PROPOSAL RING =======================================
+                '     If TmpBarCode.Contains("PSPIL") Or TmpBarCode.Contains("PSPJT") Or TmpBarCode.Contains("PJC") Or TmpBarCode.StartsWith("PSPCO") Or TmpBarCode.StartsWith("PIL") Or TmpBarCode.StartsWith("PJT") Then
 
-                If TmpBarCode.StartsWith("PSPIL") Or TmpBarCode.Contains("PSPJT") Or TmpBarCode.StartsWith("PSPCO") Or TmpBarCode.StartsWith("PIL") Or TmpBarCode.StartsWith("PJT") Then
+                If TmpBarCode.StartsWith("PS") Or TmpBarCode.StartsWith("PJC") Or TmpBarCode.StartsWith("PJT") Or TmpBarCode.StartsWith("PIL") Then
                     If chkProWedGensan.Checked Then
                         SalePrice = (3000 * tmpgrams) * 2
                         GoTo SalePriceHere
@@ -311,7 +312,7 @@ Public Class frmJelCal
                         GoTo brandnewspecial
                     End If
 
-                ElseIf TmpBarCode.Contains("SNIL") Or TmpBarCode.Contains("SNJT") Or TmpBarCode.Contains("SNCO") Then
+                ElseIf TmpBarCode.Contains("SNIL") Or TmpBarCode.Contains("SNJT") Or TmpBarCode.Contains("SNCO") Or TmpBarCode.Contains("SNJC") Then
 
                     If tmpgrams < 1.51 Then
                         If tmpKarats = 18 Then
@@ -360,7 +361,7 @@ Public Class frmJelCal
 
 
 
-                ElseIf TmpBarCode.Contains("ST") Then
+                ElseIf TmpBarCode.StartsWith("ST") Then
                     ' tmpcls = "N"
                     GoTo bradnewset
                 End If
