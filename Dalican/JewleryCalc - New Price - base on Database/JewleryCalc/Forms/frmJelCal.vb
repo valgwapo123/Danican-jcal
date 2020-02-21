@@ -121,6 +121,7 @@ Public Class frmJelCal
                 Console.WriteLine("Description:" & oSheet.Cells(cnt, 3).value)
                 tmpKarats = .ParseKarat(oSheet.Cells(cnt, 3).value)
                 tmpgrams = .ParseGrams(oSheet.Cells(cnt, 3).value)
+                Dim description As String = oSheet.Cells(cnt, 2).value
                 Dim karatclass As String = oSheet.Cells(cnt, 13).value
                 Dim Subklass As String = oSheet.Cells(cnt, 14).value
 
@@ -436,6 +437,8 @@ brandnewnotspecial:
 
                 If tmpgrams < 1.51 Then
                     If tmpKarats = 18 Then
+                        'balik  
+                        Dim ax As String = description
                         Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
                         Dim ds As DataSet = LoadSQL(mySql)
                         Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
@@ -739,10 +742,10 @@ auctionprewon:
 
                             If tmpgrams >= 10 Then
                                 If chkProWedGensan.Checked And Subklass = "A" Then
-                                    SalePrice = (2450 * tmpgrams) * 2
+                                    SalePrice = (2800 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
-                                    SalePrice = (2450 * tmpgrams) * 2
+                                    SalePrice = (2800 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 End If
                             End If

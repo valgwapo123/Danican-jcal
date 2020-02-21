@@ -65,7 +65,7 @@ Partial Class frmmainmenu
         Me.Controls.Add(Me.cmbbranch)
         Me.Name = "frmmainmenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "frmmainmenu"
+        Me.Text = "REMATADO SPECIAL CALCULATOR"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
