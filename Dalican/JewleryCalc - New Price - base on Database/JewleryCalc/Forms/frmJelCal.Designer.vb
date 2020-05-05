@@ -246,7 +246,7 @@ Partial Class frmJelCal
         'PictureBox1
         '
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(11, 12)
+        Me.PictureBox1.Location = New System.Drawing.Point(180, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(160, 119)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -262,22 +262,24 @@ Partial Class frmJelCal
         Me.BRANCH.Size = New System.Drawing.Size(43, 42)
         Me.BRANCH.TabIndex = 13
         Me.BRANCH.Text = "X"
+        Me.BRANCH.Visible = False
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Arial", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(247, 75)
+        Me.Label1.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(199, 75)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(176, 42)
+        Me.Label1.Size = New System.Drawing.Size(313, 27)
         Me.Label1.TabIndex = 14
-        Me.Label1.Text = "BRANCH"
+        Me.Label1.Text = "JEWEL CALCULATOR V.2.2"
+        Me.Label1.Visible = False
         '
         'frmJelCal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(562, 268)
+        Me.ClientSize = New System.Drawing.Size(552, 258)
         Me.ContextMenuStrip = Me.cms
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BRANCH)
