@@ -490,7 +490,7 @@ brandnewnotspecial:
                             GoTo SalePriceHere
                         ElseIf tmpKarats = 21 Then
                             If chkProWedGensan.Checked Then
-                                SalePrice = (3350 * tmpgrams) * 2
+                                SalePrice = (3100 * tmpgrams) * 2
                                 GoTo SalePriceHere
                             End If
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
@@ -668,7 +668,7 @@ auctionprewon:
                                 'derrr
 
                                 If chkProWedGensan.Checked Then
-                                    SalePrice = (3150 * tmpgrams) * 2
+                                    SalePrice = (2850 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
                                     Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
@@ -1183,7 +1183,7 @@ brandnewspecial:
 
                                         tmpKarats = 21
                                         If chkProWedGensan.Checked Then
-                                            SalePrice = (3450 * tmpgrams) * 2
+                                            SalePrice = (3200 * tmpgrams) * 2
                                             GoTo SalePriceHere
                                         End If
                                         Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
