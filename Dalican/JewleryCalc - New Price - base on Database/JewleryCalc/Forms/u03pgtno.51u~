@@ -627,10 +627,6 @@ auctionprewon:
 
                             ElseIf tmpKarats = 21 Then
                                 If chkProWedGensan.Checked Then
-                                    If tmpgrams >= 10 Then
-                                        SalePrice = (3050 * tmpgrams) * 2
-                                        GoTo SalePriceHere
-                                    End If
                                     SalePrice = (3350 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
@@ -683,7 +679,7 @@ auctionprewon:
 
                             ElseIf tmpKarats = 21 Then
                                 If chkProWedGensan.Checked Then
-                                    SalePrice = (3350 * tmpgrams) * 2
+                                    SalePrice = (3000 * tmpgrams) * 2
                                 Else
                                     Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
                                     Dim ds As DataSet = LoadSQL(mySql)
