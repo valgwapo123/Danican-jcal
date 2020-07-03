@@ -196,11 +196,9 @@ Public Class frmJelCal
 
                     If TmpBarCode.Contains("JPCO") Or TmpBarCode.StartsWith("JPIL") Then
 
-                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & "N" & "' and TBLKARAT.CATEGORY='Brand New Japan'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-                        Dim ds As DataSet = LoadSQL(mySql)
-                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-                        SalePrice = (a * tmpgrams) * 2
+
+                        SalePrice = (3400 * tmpgrams) * 2
                         GoTo SalePriceHere
 
                     End If
@@ -209,16 +207,14 @@ Public Class frmJelCal
                         If TmpBarCode.Contains("JPN") Or TmpBarCode.Contains("JPCO") Then
 
                             If tmpgrams < 1.51 Then
-                                SalePrice = (2800 * tmpgrams) * 2
+                                SalePrice = (3350 * tmpgrams) * 2
 
                                 GoTo SalePriceHere
                             Else
 
-                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Japan'  and TBLCLASS.CLASS='" & "A" & "' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-                                Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-                                SalePrice = (a * tmpgrams) * 2
+
+                                SalePrice = (3350 * tmpgrams) * 2
 
                                 GoTo SalePriceHere
 
@@ -542,7 +538,7 @@ auctionprewon:
                         Else
                             tmpKarats = 21
                             If chkProWedGensan.Checked Then
-                                SalePrice = (2900 * tmpgrams) * 2
+                                SalePrice = (3275 * tmpgrams) * 2
                                 GoTo SalePriceHere
                             Else
 
@@ -563,13 +559,13 @@ auctionprewon:
                             If tmpKarats = 18 Then
 
                                 If chkProWedGensan.Checked Then
-                                    SalePrice = (3150 * tmpgrams) * 2
+                                    SalePrice = (3050 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
                                     'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
                                     'Dim ds As DataSet = LoadSQL(mySql)
                                     'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-                                    SalePrice = (3150 * tmpgrams) * 2
+                                    SalePrice = (3050 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 End If
 
@@ -577,10 +573,10 @@ auctionprewon:
 
 
                                 If chkProWedGensan.Checked Then
-                                    SalePrice = (3350 * tmpgrams) * 2
+                                    SalePrice = (3275 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
-                                    SalePrice = (3350 * tmpgrams) * 2
+                                    SalePrice = (3275 * tmpgrams) * 2
 
                                     GoTo SalePriceHere
                                 End If
@@ -607,19 +603,19 @@ auctionprewon:
 
                                 If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
                                     If chkProWedGensan.Checked Then
-                                        SalePrice = (3000 * tmpgrams) * 2
+                                        SalePrice = (2900 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Else
-                                        SalePrice = (3000 * tmpgrams) * 2
+                                        SalePrice = (2900 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
                                 If tmpgrams >= 10 Then
                                     If chkProWedGensan.Checked Then
-                                        SalePrice = (2750 * tmpgrams) * 2
+                                        SalePrice = (2550 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Else
-                                        SalePrice = (2750 * tmpgrams) * 2
+                                        SalePrice = (2550 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
@@ -628,14 +624,14 @@ auctionprewon:
                             ElseIf tmpKarats = 21 Then
                                 If chkProWedGensan.Checked Then
                                     If tmpgrams >= 10 Then
-                                        SalePrice = (3050 * tmpgrams) * 2
+                                        SalePrice = (2975 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
-                                    SalePrice = (3350 * tmpgrams) * 2
+                                    SalePrice = (2975 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
                                     If tmpgrams >= 10 Then
-                                        SalePrice = (3050 * tmpgrams) * 2
+                                        SalePrice = (2975 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
 
@@ -672,7 +668,7 @@ auctionprewon:
                                 'derrr
 
                                 If chkProWedGensan.Checked Then
-                                    SalePrice = (3150 * tmpgrams) * 2
+                                    SalePrice = (3050 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
                                     Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
@@ -683,7 +679,7 @@ auctionprewon:
 
                             ElseIf tmpKarats = 21 Then
                                 If chkProWedGensan.Checked Then
-                                    SalePrice = (3350 * tmpgrams) * 2
+                                    SalePrice = (3275 * tmpgrams) * 2
                                 Else
                                     Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
                                     Dim ds As DataSet = LoadSQL(mySql)
@@ -720,51 +716,51 @@ auctionprewon:
 
                                 If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
                                     If chkProWedGensan.Checked Then
-                                        SalePrice = (2900 * tmpgrams) * 2
+                                        SalePrice = (2800 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Else
-                                        SalePrice = (2900 * tmpgrams) * 2
+                                        SalePrice = (2800 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
                                 If tmpgrams >= 10 Then
                                     If chkProWedGensan.Checked And Subklass = "A" Then
-                                        SalePrice = (2750 * tmpgrams) * 2
+                                        SalePrice = (2550 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Else
-                                        SalePrice = (2750 * tmpgrams) * 2
+                                        SalePrice = (2550 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
 
-                                If chkProWedGensan.Checked Then
-                                    SalePrice = (2550 * tmpgrams) * 2
-                                    GoTo SalePriceHere
-                                Else
-                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction-SPP' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-                                    Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-                                    SalePrice = (a * tmpgrams) * 2
-                                    GoTo SalePriceHere
-                                End If
+                                'If chkProWedGensan.Checked Then
+                                '    SalePrice = (2900 * tmpgrams) * 2
+                                '    GoTo SalePriceHere
+                                'Else
+                                '    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction-SPP' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+                                '    Dim ds As DataSet = LoadSQL(mySql)
+                                '    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                '    SalePrice = (a * tmpgrams) * 2
+                                '    GoTo SalePriceHere
+                                'End If
 
                             ElseIf tmpKarats = 21 Then
                                 If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
                                     If chkProWedGensan.Checked Then
-                                        SalePrice = (3250 * tmpgrams) * 2
+                                        SalePrice = (3175 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Else
-                                        SalePrice = (3250 * tmpgrams) * 2
+                                        SalePrice = (3175 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
 
                                 If tmpgrams >= 10 Then
                                     If chkProWedGensan.Checked And Subklass = "A" Then
-                                        SalePrice = (3050 * tmpgrams) * 2
+                                        SalePrice = (2975 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Else
-                                        SalePrice = (3050 * tmpgrams) * 2
+                                        SalePrice = (2975 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
@@ -795,7 +791,7 @@ auctionprewon:
                                     SalePrice = (2400 * tmpgrams) * 2
                                 Else
 
-                                    SalePrice = (3150 * tmpgrams) * 2
+                                    SalePrice = (3050 * tmpgrams) * 2
 
                                     GoTo SalePriceHere
                                 End If
@@ -863,24 +859,24 @@ auctionprewon:
                             If tmpKarats = 18 Then
                                 If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
                                     If chkProWedGensan.Checked And Subklass = "A" Then
-                                        SalePrice = (2850 * tmpgrams) * 2
+                                        SalePrice = (2750 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     ElseIf Subklass = "A" Then
-                                        SalePrice = (2850 * tmpgrams) * 2
+                                        SalePrice = (2750 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
                                 If tmpgrams >= 10 Then
                                     If chkProWedGensan.Checked And Subklass = "A" Then
-                                        SalePrice = (2750 * tmpgrams) * 2
+                                        SalePrice = (2550 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     ElseIf Subklass = "A" Then
-                                        SalePrice = (2750 * tmpgrams) * 2
+                                        SalePrice = (2550 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
                                 If chkProWedGensan.Checked And Subklass = "B" Then
-                                    SalePrice = (2400 * tmpgrams) * 2
+                                    SalePrice = (2600 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 End If
                                 Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction' and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
@@ -891,22 +887,22 @@ auctionprewon:
                             ElseIf tmpKarats = 21 Then
                                 If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
                                     If chkProWedGensan.Checked And Subklass = "A" Then
-                                        SalePrice = (3150 * tmpgrams) * 2
+                                        SalePrice = (3075 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Else
-                                        SalePrice = (3150 * tmpgrams) * 2
+                                        SalePrice = (3075 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
                                 End If
                                 If tmpgrams >= 10 Then
                                     If chkProWedGensan.Checked And Subklass = "A" Then
-                                        SalePrice = (3050 * tmpgrams) * 2
+                                        SalePrice = (2975 * tmpgrams) * 2
                                         GoTo SalePriceHere
 
                                     End If
 
                                     If Subklass = "A" Then
-                                        SalePrice = (3050 * tmpgrams) * 2
+                                        SalePrice = (2975 * tmpgrams) * 2
                                         GoTo SalePriceHere
 
                                     End If

@@ -45,13 +45,11 @@ Partial Class frmJelCal
         Me.lblGRPath = New System.Windows.Forms.Label()
         Me.lblIMDpath = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.BRANCH = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.cms.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnBrowse
@@ -243,16 +241,6 @@ Partial Class frmJelCal
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Visible = False
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(180, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(160, 119)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 11
-        Me.PictureBox1.TabStop = False
-        '
         'BRANCH
         '
         Me.BRANCH.AutoSize = True
@@ -279,11 +267,10 @@ Partial Class frmJelCal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(552, 258)
+        Me.ClientSize = New System.Drawing.Size(552, 257)
         Me.ContextMenuStrip = Me.cms
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BRANCH)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.lblstatus)
         Me.Controls.Add(Me.pbstatus)
@@ -302,7 +289,6 @@ Partial Class frmJelCal
         Me.cms.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -324,7 +310,6 @@ Partial Class frmJelCal
     Friend WithEvents lblGRPath As System.Windows.Forms.Label
     Friend WithEvents lblIMDpath As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents btnBarcode As System.Windows.Forms.Button
     Friend WithEvents chkProWedGensan As System.Windows.Forms.CheckBox
     Friend WithEvents BRANCH As System.Windows.Forms.Label
