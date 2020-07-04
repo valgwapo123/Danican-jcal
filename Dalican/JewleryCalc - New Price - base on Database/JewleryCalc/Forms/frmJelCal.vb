@@ -627,7 +627,7 @@ auctionprewon:
                                         SalePrice = (2975 * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     End If
-                                    SalePrice = (2975 * tmpgrams) * 2
+                                    SalePrice = (3275 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 Else
                                     If tmpgrams >= 10 Then
@@ -786,7 +786,7 @@ auctionprewon:
                             'CLASS A
                             If tmpKarats = 18 Then
                                 If chkProWedGensan.Checked And Subklass = "A" Then
-                                    SalePrice = (3150 * tmpgrams) * 2
+                                    SalePrice = (3050 * tmpgrams) * 2
                                 ElseIf chkProWedGensan.Checked And Subklass = "B" Then
                                     SalePrice = (2400 * tmpgrams) * 2
                                 Else
@@ -798,7 +798,7 @@ auctionprewon:
 
                             ElseIf tmpKarats = 21 Then
                                 If chkProWedGensan.Checked And Subklass = "A" Then
-                                    SalePrice = (3350 * tmpgrams) * 2
+                                    SalePrice = (3275 * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 ElseIf chkProWedGensan.Checked And Subklass = "B" Then
                                     SalePrice = (2600 * tmpgrams) * 2
