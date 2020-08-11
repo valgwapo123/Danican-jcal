@@ -76,6 +76,7 @@
             .ID = catID
             .Category = txtCategory.Text
             .Karat = txtKarat.Text
+
         End With
         SelectedCat.Update()
 
@@ -86,7 +87,8 @@
                 .ID = IIf(item.SubItems(0).Text = "", 0, item.SubItems(0).Text)
                 .CLassificaton = item.SubItems(1).Text
                 .Price = item.SubItems(2).Text
-
+                .lessthan = item.SubItems(3).Text
+                .greaterthan = item.SubItems(4).Text
                 .Update()
             End With
            
@@ -108,6 +110,8 @@
 
         txtClass.Text = lvList.SelectedItems(0).SubItems(1).Text
         txtPrice.Text = lvList.SelectedItems(0).SubItems(2).Text
+        txtless.Text = lvList.SelectedItems(0).SubItems(3).Text
+        txtgreater.Text = lvList.SelectedItems(0).SubItems(4).Text
         btnAdd.Text = "&Update"
     End Sub
 
@@ -118,11 +122,15 @@
             Dim lv As ListViewItem = lvList.Items.Add(0)
             lv.SubItems.Add(txtClass.Text)
             lv.SubItems.Add(txtPrice.Text)
+            lv.SubItems.Add(txtless.Text)
+            lv.SubItems.Add(txtgreater.Text)
         Else
             lvList.SelectedItems(0).SubItems(1).Text = txtClass.Text
             lvList.SelectedItems(0).SubItems(2).Text = txtPrice.Text
+            lvList.SelectedItems(0).SubItems(3).Text = txtless.Text
+            lvList.SelectedItems(0).SubItems(4).Text = txtgreater.Text
         End If
-        btnAdd.Text = "&Add" : txtPrice.Clear() : txtClass.Clear()
+        btnAdd.Text = "&Add" : txtPrice.Clear() : txtClass.Clear() : txtgreater.Clear() : txtless.Clear()
     End Sub
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click

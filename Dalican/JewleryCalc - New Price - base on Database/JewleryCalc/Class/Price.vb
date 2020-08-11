@@ -126,6 +126,8 @@
             With ds.Tables(MainTable).Rows(0)
                 .Item("Class") = _Class
                 .Item("Price") = _Price
+                .Item("less") = _lessthan
+                .Item("Greater") = _greaterthan
             End With
             database.SaveEntry(ds, False)
         Else
@@ -134,7 +136,10 @@
             With dsNewRow
                .Item("KaratID") = _CatID
                 .Item("Class") = _Class
+                .Item("Branch_ID") = "1"
                 .Item("Price") = _Price
+                .Item("less") = _lessthan
+                .Item("Greater") = _greaterthan
             End With
             ds.Tables(0).Rows.Add(dsNewRow)
             database.SaveEntry(ds)

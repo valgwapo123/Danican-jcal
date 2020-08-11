@@ -140,7 +140,7 @@
         End With
     End Sub
 
-    Private Sub lvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvList.DoubleClick, lvaddbardcode.SelectedIndexChanged
+    Private Sub lvList_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvList.DoubleClick
         If lvList.SelectedItems.Count = 0 Then Exit Sub
         selectbarcode()
     End Sub

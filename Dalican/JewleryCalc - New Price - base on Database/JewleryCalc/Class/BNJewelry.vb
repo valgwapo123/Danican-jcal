@@ -104,18 +104,18 @@
         End If
 
         For Each dr As DataRow In ds.Tables(0).Rows
-            loadbyRow(dr)
+            loadbyRowx(dr)
         Next
     End Sub
 
-    'Friend Sub loadbyRow(ByVal dr As DataRow)
-    '    With dr
-    '        _id = .Item("Id")
-    '        _Barcode = .Item("Barcode")
-    '        _Category = .Item("Category")
-    '        _IsSpecial = IIf(.Item("IsSpecial") = 1, True, False)
-    '    End With
-    'End Sub
+    Friend Sub loadbyRowx(ByVal dr As DataRow)
+        With dr
+            _id = .Item("Id")
+            _Barcode = .Item("Barcode")
+            _Category = .Item("Category")
+            _IsSpecial = IIf(.Item("IsSpecial") = 1, True, False)
+        End With
+    End Sub
 
 
     Friend Sub loadSpecial()
