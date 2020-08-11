@@ -116,8 +116,8 @@ Public Class Karat
         bnjAllBarcodes.loadAllBarcode()
 
         'Wedding 
-        Dim wdSpecial As New BNJewelry
-        wdSpecial.loadWedding_NotSpecial()
+        'Dim wdSpecial As New BNJewelry
+        'wdSpecial.loadWedding_NotSpecial()
 
         'Proposal 
         Dim ProposalRing_Special As New BNJewelry
@@ -142,15 +142,15 @@ Public Class Karat
             Next
         End If
 
-        If itmGroup = "WEDDING RING" Then
-            'Return Wedding
-            For Each Str As String In wdSpecial.load_all_barcode
-                If BarcodeParse.Contains(Str) Then
-                    category = wdSpecial.Category
-                    Return category
-                End If
-            Next
-        End If
+        'If itmGroup = "WEDDING RING" Then
+        '    'Return Wedding
+        '    For Each Str As String In wdSpecial.load_all_barcode
+        '        If BarcodeParse.Contains(Str) Then
+        '            category = wdSpecial.Category
+        '            Return category
+        '        End If
+        '    Next
+        'End If
 
         If BarcodeParse.Contains("BN") Then
             category = "Brand New"

@@ -42,9 +42,54 @@
         End Set
     End Property
 
+
+    Private _price As Double
+    Public Property price() As Double
+        Get
+            Return _price
+        End Get
+        Set(ByVal value As Double)
+            _price = value
+        End Set
+    End Property
+
+
+    Private _karat As Integer
+    Public Property karat() As Integer
+        Get
+            Return _karat
+        End Get
+        Set(ByVal value As Integer)
+            _karat = value
+        End Set
+    End Property
+
+
+    Private _lessthan As Double
+    Public Property lessthan() As Double
+        Get
+            Return _lessthan
+        End Get
+        Set(ByVal value As Double)
+            _lessthan = value
+        End Set
+    End Property
+
+
+
+    Private _greaterthan As Double
+    Public Property greaterthan() As Double
+        Get
+            Return _greaterthan
+        End Get
+        Set(ByVal value As Double)
+            _greaterthan = value
+        End Set
+    End Property
     Public barcode_col As New ArrayList
 
     Public load_all_barcode As New ArrayList
+    Public details As New ArrayList
 
 #End Region
 
@@ -63,14 +108,14 @@
         Next
     End Sub
 
-    Friend Sub loadbyRow(ByVal dr As DataRow)
-        With dr
-            _id = .Item("Id")
-            _Barcode = .Item("Barcode")
-            _Category = .Item("Category")
-            _IsSpecial = IIf(.Item("IsSpecial") = 1, True, False)
-        End With
-    End Sub
+    'Friend Sub loadbyRow(ByVal dr As DataRow)
+    '    With dr
+    '        _id = .Item("Id")
+    '        _Barcode = .Item("Barcode")
+    '        _Category = .Item("Category")
+    '        _IsSpecial = IIf(.Item("IsSpecial") = 1, True, False)
+    '    End With
+    'End Sub
 
 
     Friend Sub loadSpecial()
@@ -87,10 +132,38 @@
             barcode_col.Add(_Barcode)
         Next
     End Sub
+    Friend Sub loadbarcodess()
+        mysql = "select * from " & "JCAL_LIST" & " WHERE BRANCH_ID='1' "
+        Dim ds As DataSet = LoadSQL(mysql, tbl)
 
+        If ds.Tables(0).Rows.Count = 0 Then
+            MsgBox("barcode Not found")
+            Exit Sub
+        End If
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            loadbyRow(dr)
+            barcode_col.Add(_Barcode)
+
+
+        Next
+    End Sub
+
+    Friend Sub loadbyRow(ByVal dr As DataRow)
+        With dr
+            _id = .Item("Id")
+            _Barcode = .Item("Barcode")
+            _Category = .Item("Category")
+            _IsSpecial = IIf(.Item("IsSpecial") = 1, True, False)
+            _karat = .Item("karat")
+            _price = .Item("Price")
+            _lessthan = .Item("less")
+            _greaterthan = .Item("Greater")
+        End With
+    End Sub
 
     Friend Sub loadAllBarcode()
-        mysql = "select * from " & tbl & " where category <>'SP AUCTION' AND category <> 'PROPOSAL RING' and category <> 'WEDDING'"
+        mysql = "Select * from " & tbl & " where category <>'SP AUCTION' AND category <> 'PROPOSAL RING' and category <> 'WEDDING'"
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
