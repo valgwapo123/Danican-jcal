@@ -109,7 +109,8 @@
                 row = New ListViewItem(.ID)
                 row.SubItems.Add(.CLassificaton)
                 row.SubItems.Add(.Price)
-
+                row.SubItems.Add(.lessthan)
+                row.SubItems.Add(.greaterthan)
                 frmConsole.lvList.Items.Add(row)
 
             End With

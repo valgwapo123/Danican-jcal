@@ -53,7 +53,29 @@
     End Property
 
 
+    Private _greaterthan As Double
+    Public Property greaterthan() As Double
+        Get
+            Return _greaterthan
+        End Get
+        Set(ByVal value As Double)
+            _greaterthan = value
+        End Set
+    End Property
+
+    Private _lessthan As Double
+    Public Property lessthan() As Double
+        Get
+            Return _lessthan
+        End Get
+        Set(ByVal value As Double)
+            _lessthan = value
+        End Set
+    End Property
+
 #End Region
+
+
 
 #Region "Procedures and Functions"
     Public Sub Load_Class_row(ByVal dr As DataRow)
@@ -62,6 +84,8 @@
             _CatID = .Item("KaratID")
             _Class = .Item("Class")
             _Price = .Item("Price")
+            _lessthan = .Item("LESS")
+            _greaterthan = .Item("GREATER")
         End With
     End Sub
 

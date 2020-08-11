@@ -44,6 +44,13 @@ Partial Class frmConsole
         Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtless = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtgreater = New System.Windows.Forms.TextBox()
+        Me.ShapeContainer2 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
         'btnSearch
@@ -57,12 +64,13 @@ Partial Class frmConsole
         '
         'lvList
         '
-        Me.lvList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader3, Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.lvList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader3, Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader4, Me.ColumnHeader5})
         Me.lvList.FullRowSelect = True
         Me.lvList.GridLines = True
-        Me.lvList.Location = New System.Drawing.Point(307, 144)
+        Me.lvList.HideSelection = False
+        Me.lvList.Location = New System.Drawing.Point(258, 224)
         Me.lvList.Name = "lvList"
-        Me.lvList.Size = New System.Drawing.Size(323, 223)
+        Me.lvList.Size = New System.Drawing.Size(529, 211)
         Me.lvList.TabIndex = 1
         Me.lvList.UseCompatibleStateImageBehavior = False
         Me.lvList.View = System.Windows.Forms.View.Details
@@ -173,7 +181,7 @@ Partial Class frmConsole
         '
         'BtnSave
         '
-        Me.BtnSave.Location = New System.Drawing.Point(421, 377)
+        Me.BtnSave.Location = New System.Drawing.Point(424, 485)
         Me.BtnSave.Name = "BtnSave"
         Me.BtnSave.Size = New System.Drawing.Size(75, 23)
         Me.BtnSave.TabIndex = 13
@@ -182,7 +190,7 @@ Partial Class frmConsole
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(502, 377)
+        Me.btnCancel.Location = New System.Drawing.Point(505, 485)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 14
@@ -194,8 +202,7 @@ Partial Class frmConsole
         Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
         Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
         Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape2, Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(653, 411)
+        Me.ShapeContainer1.Size = New System.Drawing.Size(799, 518)
         Me.ShapeContainer1.TabIndex = 15
         Me.ShapeContainer1.TabStop = False
         '
@@ -225,11 +232,67 @@ Partial Class frmConsole
         Me.Label5.TabIndex = 16
         Me.Label5.Text = "Jewelry Price"
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(304, 148)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(29, 13)
+        Me.Label6.TabIndex = 18
+        Me.Label6.Text = "Less"
+        '
+        'txtless
+        '
+        Me.txtless.Location = New System.Drawing.Point(372, 145)
+        Me.txtless.Name = "txtless"
+        Me.txtless.Size = New System.Drawing.Size(168, 20)
+        Me.txtless.TabIndex = 17
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(304, 184)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(42, 13)
+        Me.Label7.TabIndex = 20
+        Me.Label7.Text = "Greater"
+        '
+        'txtgreater
+        '
+        Me.txtgreater.Location = New System.Drawing.Point(372, 181)
+        Me.txtgreater.Name = "txtgreater"
+        Me.txtgreater.Size = New System.Drawing.Size(168, 20)
+        Me.txtgreater.TabIndex = 19
+        '
+        'ShapeContainer2
+        '
+        Me.ShapeContainer2.Location = New System.Drawing.Point(0, 0)
+        Me.ShapeContainer2.Margin = New System.Windows.Forms.Padding(0)
+        Me.ShapeContainer2.Name = "ShapeContainer1"
+        Me.ShapeContainer2.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape2, Me.LineShape1})
+        Me.ShapeContainer2.Size = New System.Drawing.Size(799, 518)
+        Me.ShapeContainer2.TabIndex = 15
+        Me.ShapeContainer2.TabStop = False
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Less"
+        Me.ColumnHeader4.Width = 100
+        '
+        'ColumnHeader5
+        '
+        Me.ColumnHeader5.Text = "Greater"
+        Me.ColumnHeader5.Width = 100
+        '
         'frmConsole
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(653, 411)
+        Me.ClientSize = New System.Drawing.Size(799, 518)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.txtgreater)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.txtless)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.BtnSave)
@@ -275,4 +338,11 @@ Partial Class frmConsole
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents Label6 As Label
+    Friend WithEvents txtless As TextBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents txtgreater As TextBox
+    Friend WithEvents ShapeContainer2 As PowerPacks.ShapeContainer
+    Friend WithEvents ColumnHeader4 As ColumnHeader
+    Friend WithEvents ColumnHeader5 As ColumnHeader
 End Class
