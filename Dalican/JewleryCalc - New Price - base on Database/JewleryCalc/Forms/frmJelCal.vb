@@ -29,6 +29,7 @@ Public Class frmJelCal
 
     Private Sub btnGenerate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerate.Click
 
+
         'If lblPath.Text = "File not yet" Then Exit Sub
         SEARCHIDBRANCH()
         'Load ExcelF
@@ -112,225 +113,340 @@ Public Class frmJelCal
         'SETPreOwn_.load_SetPreOwn()
 
 
+
+
+
+
+
         For cnt = 2 To MaxEntries
 
-            'Dim JewTmp As New Karat
-            'Dim tmpClass As New Classes
-            ''With JewTmp
-            'OLD = oSheet.Cells(cnt, 11).value
-
-            ''If OLD <> "YES" Then
-            ''    isOld = True
-            ''End If
 
 
 
 
-            Dim JewTmp As New Karat
-            Dim tmpClass As New Classes
-            With JewTmp
-                OLD = oSheet.Cells(cnt, 11).value
+                'Dim JewTmp As New Karat
+                'Dim tmpClass As New Classes
+                ''With JewTmp
+                'OLD = oSheet.Cells(cnt, 11).value
 
-                If OLD <> "YES" Then
-                    isOld = True
-                End If
+                ''If OLD <> "YES" Then
+                ''    isOld = True
+                ''End If
 
-                Dim TmpBarCode As String = oSheet.Cells(cnt, 10).value
-                Console.WriteLine("Description:" & oSheet.Cells(cnt, 3).value)
-                tmpKarats = .ParseKarat(oSheet.Cells(cnt, 3).value)
-                tmpgrams = .ParseGrams(oSheet.Cells(cnt, 3).value)
-                Dim description As String = oSheet.Cells(cnt, 2).value
-                Dim karatclass As String = oSheet.Cells(cnt, 13).value
-                Dim Subklass As String = oSheet.Cells(cnt, 14).value
+
+
+
+                Dim JewTmp As New Karat
+                Dim tmpClass As New Classes
+                With JewTmp
+                    OLD = oSheet.Cells(cnt, 11).value
+
+                    If OLD <> "YES" Then
+                        isOld = True
+                    End If
+
+                    Dim TmpBarCode As String = oSheet.Cells(cnt, 10).value
+                    Console.WriteLine("Description:" & oSheet.Cells(cnt, 3).value)
+                    tmpKarats = .ParseKarat(oSheet.Cells(cnt, 3).value)
+                    tmpgrams = .ParseGrams(oSheet.Cells(cnt, 3).value)
+                    Dim description As String = oSheet.Cells(cnt, 2).value
+                    Dim karatclass As String = oSheet.Cells(cnt, 13).value
+                    Dim Subklass As String = oSheet.Cells(cnt, 14).value
 
 
 
                 For Each Str As String In jcal_list.barcode_col
+                    Try
 
 
 
 
-                    If TmpBarCode.StartsWith(Str) Then
-
-                        If Not oSheet.Cells(cnt, 13).value = "P" Then
 
 
-
-                            If Str = "JPN" Then
-
-                                Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New Japan' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                SalePrice = (a * tmpgrams) * 2
-                                GoTo SalePriceHere
-                            End If
+                        If TmpBarCode.StartsWith(Str) Then
 
 
 
 
-                            If Str = "SET" Then
+                            If Not oSheet.Cells(cnt, 13).value = "P" Then
 
-                                Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                If Str.StartsWith("SP") Then
 
-                                SalePrice = (a * tmpgrams) * 2
-                                GoTo SalePriceHere
-                            End If
-
-                            If oSheet.Cells(cnt, 12).value = "WEDDING RING" Or oSheet.Cells(cnt, 12).value = "PROPOSAL RING" Then
+                                    Select Case tmpgrams
 
 
-                                If chkProWedGensan.Checked Then
-                                    Subklass = "N-(INSIDE)"
-                                Else
-                                    Subklass = "N"
+
+                                        Case < 1.51
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+
+
+                                        Case Else
+
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+
+                                    End Select
+
+                                End If
+
+                                If Str.StartsWith("SN") Then
+
+                                    Select Case tmpgrams
+
+
+
+                                        Case < 1.51
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+
+
+                                        Case Else
+
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+
+                                    End Select
+
+                                End If
+
+                                If Str = "JPN" Then
+
+                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New Japan' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                    Dim ds As DataSet = LoadSQL(mySql)
+                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                    SalePrice = (a * tmpgrams) * 2
+                                    GoTo SalePriceHere
                                 End If
 
 
-                                Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= '" & Subklass & "' AND Less='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                SalePrice = (a * tmpgrams) * 2
-                                GoTo SalePriceHere
-                            End If
-                            Select Case tmpgrams
-                                Case < 1.51
 
 
-                                    If Str = "BN" Then
+                                If Str = "SET" Then
 
-                                        Subklass = "N"
-                                    End If
-                                    Dim less As String = "1.5"
-
-
-
-
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  Less=" & less & " AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                     Dim ds As DataSet = LoadSQL(mySql)
                                     Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
                                     SalePrice = (a * tmpgrams) * 2
                                     GoTo SalePriceHere
+                                End If
+
+                                If oSheet.Cells(cnt, 12).value = "WEDDING RING" Or oSheet.Cells(cnt, 12).value = "PROPOSAL RING" Then
 
 
-
-                                Case Else
-
-
-                                    If oSheet.Cells(cnt, 12).value = "BRAND NEW JWL" Then
+                                    If chkProWedGensan.Checked Then
+                                        Subklass = "N-(INSIDE)"
+                                    Else
                                         Subklass = "N"
                                     End If
 
 
-
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "' AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= '" & Subklass & "' AND Less='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                     Dim ds As DataSet = LoadSQL(mySql)
                                     Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
                                     SalePrice = (a * tmpgrams) * 2
                                     GoTo SalePriceHere
-
-                                    '                 
-                            End Select
-
-
-
-
-
-
-
-
-
-                        End If
-
-
-
-
-
-                        If oSheet.Cells(cnt, 13).value = "P" Then
-
-
-
-                            If Str = "JPN" Then
-
-                                Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  Category='Auction Japan' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                SalePrice = (a * tmpgrams) * 2
-                                GoTo SalePriceHere
-                            End If
-
-
-
-                            If Str = "SET" Then
-
-                                Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                Dim ds As DataSet = LoadSQL(mySql)
-                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                SalePrice = (a * tmpgrams) * 2
-                                GoTo SalePriceHere
-                            End If
-                            If Str = "SNO" Then
-
+                                End If
                                 Select Case tmpgrams
-
-
-
                                     Case < 1.51
-                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='1.5'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+
+
+                                        If Str = "BN" Then
+
+                                            Subklass = "N"
+                                        End If
+                                        Dim less As String = "1.5"
+
+
+
+
+                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  Less=" & less & " AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
                                         Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
+
+
+
+                                    Case Else
+
+
+                                        If oSheet.Cells(cnt, 12).value = "BRAND NEW JWL" Then
+                                            Subklass = "N"
+                                        End If
+
+
+
+                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "' AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                        Dim ds As DataSet = LoadSQL(mySql)
+                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                        SalePrice = (a * tmpgrams) * 2
+                                        GoTo SalePriceHere
+
+                                        '                 
+                                End Select
+
+
+
+
+
+
+
+
+
+                            End If
+
+
+
+
+
+                            If oSheet.Cells(cnt, 13).value = "P" Then
+
+
+
+                                If Str = "JPN" Then
+
+                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  Category='Auction Japan' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                    Dim ds As DataSet = LoadSQL(mySql)
+                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                    SalePrice = (a * tmpgrams) * 2
+                                    GoTo SalePriceHere
+                                End If
+
+
+
+                                If Str = "SET" Then
+
+                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                    Dim ds As DataSet = LoadSQL(mySql)
+                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                    SalePrice = (a * tmpgrams) * 2
+                                    GoTo SalePriceHere
+                                End If
+                                If Str = "SNO" Then
+
+                                    Select Case tmpgrams
+
+
+
+                                        Case < 1.51
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='1.5'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+                                        Case >= 10
+
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  Greater='10'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+
+                                        Case Else
+
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='0'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+                                    End Select
+
+
+
+
+
+                                End If
+
+
+                                If Str = "SPP" Then
+
+                                    Select Case tmpgrams
+
+
+
+                                        Case < 1.51
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='1.5'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+                                        Case Else
+
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='0'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+                                    End Select
+
+
+
+
+
+                                End If
+
+
+
+                                Select Case tmpgrams
+
+
+
+                                    Case 1.51 To 9.99
+
+                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='1.51' AND Greater='9.99' AND KARAT = " & tmpKarats & "  AND  BRANCH_ID=  " & branchid & ""
+                                        Dim ds As DataSet = LoadSQL(mySql)
+                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                        SalePrice = (a * tmpgrams) * 2
+                                        GoTo SalePriceHere
+
                                     Case >= 10
-
-                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  Greater='10'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='0' AND Greater='10' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
                                         Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
-
-                                    Case Else
-
-                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='0'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                        Dim ds As DataSet = LoadSQL(mySql)
-                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                        SalePrice = (a * tmpgrams) * 2
-                                        GoTo SalePriceHere
-                                End Select
-
-
-
-
-
-                            End If
-
-
-                            If Str = "SPP" Then
-
-                                Select Case tmpgrams
-
-
-
                                     Case < 1.51
-                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='1.5'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='1.5' AND Greater='0' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
                                         Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
+
                                     Case Else
 
-                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='0'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "' AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
                                         Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
@@ -338,1281 +454,1245 @@ Public Class frmJelCal
                                         GoTo SalePriceHere
                                 End Select
 
-
-
-
-
                             End If
 
 
 
-                            Select Case tmpgrams
 
 
 
-                                Case 1.51 To 9.99
 
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='1.51' AND Greater='9.99' AND KARAT = " & tmpKarats & "  AND  BRANCH_ID=  " & branchid & ""
-                                    Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-                                    SalePrice = (a * tmpgrams) * 2
-                                    GoTo SalePriceHere
-
-                                Case >= 10
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='0' AND Greater='10' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
-                                    Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                    SalePrice = (a * tmpgrams) * 2
-                                    GoTo SalePriceHere
-                                Case < 1.51
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='1.5' AND Greater='0' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
-                                    Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                    SalePrice = (a * tmpgrams) * 2
-                                    GoTo SalePriceHere
-
-                                Case Else
-
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "' AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                    Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                    SalePrice = (a * tmpgrams) * 2
-                                    GoTo SalePriceHere
-                            End Select
 
                         End If
 
 
+                    Catch ex As Exception
+                        MessageBox.Show(oSheet.Cells(cnt, 2).value)
 
 
 
-
-
-
-
-                    End If
-
-
-
+                    End Try
 
                 Next
-
-                Select Case tmpgrams
-
+                Try
 
 
-                    Case 1.51 To 9.99
-
-                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='1.51' AND Greater='9.99' AND KARAT = " & tmpKarats & "  AND  BRANCH_ID=  " & branchid & ""
-                        Dim ds As DataSet = LoadSQL(mySql)
-                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                        SalePrice = (a * tmpgrams) * 2
-                        GoTo SalePriceHere
-
-                    Case >= 10
-                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='0' AND Greater='10' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
-                        Dim ds As DataSet = LoadSQL(mySql)
-                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                        SalePrice = (a * tmpgrams) * 2
-                        GoTo SalePriceHere
-                    Case < 1.51
-                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='1.5' AND Greater='0' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
-                        Dim ds As DataSet = LoadSQL(mySql)
-                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                        SalePrice = (a * tmpgrams) * 2
-                        GoTo SalePriceHere
-
-                    Case Else
-
-                        ''AUCTION REG
-                        Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "'AND Category='Reg-Auction'  AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  and BRANCH_ID=  " & branchid & ""
-                        Dim ds As DataSet = LoadSQL(mySql)
-                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                        SalePrice = (a * tmpgrams) * 2
-                        GoTo SalePriceHere
-                End Select
+                    Select Case tmpgrams
 
 
+
+                        Case 1.51 To 9.99
+
+                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='1.51' AND Greater='9.99' AND KARAT = " & tmpKarats & "  AND  BRANCH_ID=  " & branchid & ""
+                            Dim ds As DataSet = LoadSQL(mySql)
+                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                            SalePrice = (a * tmpgrams) * 2
+                            GoTo SalePriceHere
+
+                        Case >= 10
+                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='0' AND Greater='10' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
+                            Dim ds As DataSet = LoadSQL(mySql)
+                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                            SalePrice = (a * tmpgrams) * 2
+                            GoTo SalePriceHere
+                        Case < 1.51
+                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='1.5' AND Greater='0' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
+                            Dim ds As DataSet = LoadSQL(mySql)
+                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                            SalePrice = (a * tmpgrams) * 2
+                            GoTo SalePriceHere
+
+                        Case Else
+
+                            ''AUCTION REG
+                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "'AND Category='Reg-Auction'  AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  and BRANCH_ID=  " & branchid & ""
+                            Dim ds As DataSet = LoadSQL(mySql)
+                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                            SalePrice = (a * tmpgrams) * 2
+                            GoTo SalePriceHere
+                    End Select
+
+                Catch ex As Exception
+                    MessageBox.Show(oSheet.Cells(cnt, 2).value)
+
+
+
+                End Try
             End With
+
+
+
 
 SalePriceHere:
-            '                        Console.WriteLine(SalePrice)
+                '                        Console.WriteLine(SalePrice)
 
-            With oSheet
-                oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
-                oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
-                oSheet1.Cells(cnt, 3) = ""
-                oSheet1.Cells(cnt, 4) = oSheet.Cells(cnt, 12).value
-                oSheet1.Cells(cnt, 5) = ""
-                oSheet1.Cells(cnt, 6) = "PIECE"
-                oSheet1.Cells(cnt, 7) = 0
-                oSheet1.Cells(cnt, 8) = SalePrice
-                oSheet1.Cells(cnt, 9) = "Y"
-                oSheet1.Cells(cnt, 10) = "Y"
-                oSheet1.Cells(cnt, 11) = "N"
-                oSheet1.Cells(cnt, 12) = "Y"
-                oSheet1.Cells(cnt, 13) = 50
-                oSheet1.Cells(cnt, 14) = 40
+                With oSheet
+                    oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
+                    oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
+                    oSheet1.Cells(cnt, 3) = ""
+                    oSheet1.Cells(cnt, 4) = oSheet.Cells(cnt, 12).value
+                    oSheet1.Cells(cnt, 5) = ""
+                    oSheet1.Cells(cnt, 6) = "PIECE"
+                    oSheet1.Cells(cnt, 7) = 0
+                    oSheet1.Cells(cnt, 8) = SalePrice
+                    oSheet1.Cells(cnt, 9) = "Y"
+                    oSheet1.Cells(cnt, 10) = "Y"
+                    oSheet1.Cells(cnt, 11) = "N"
+                    oSheet1.Cells(cnt, 12) = "Y"
+                    oSheet1.Cells(cnt, 13) = 50
+                    oSheet1.Cells(cnt, 14) = 40
 
 
 
 
-                pbstatus.Value = pbstatus.Value + 1
-            Application.DoEvents()
-            lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
-            tmpcls = "" : isOld = False
-            End With
+                    pbstatus.Value = pbstatus.Value + 1
+                    Application.DoEvents()
+                    lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
+                    tmpcls = "" : isOld = False
+                End With
 
 
 
-        Next
+            Next
 
 
 
-        '        Me.Enabled = False
-        '        For cnt = 2 To MaxEntries
-        '            Try
-        'Dim JewTmp As New Karat
-        'Dim tmpClass As New Classes
-        'With JewTmp
-        '    OLD = oSheet.Cells(cnt, 11).value
+            '        Me.Enabled = False
+            '        For cnt = 2 To MaxEntries
+            '            Try
+            'Dim JewTmp As New Karat
+            'Dim tmpClass As New Classes
+            'With JewTmp
+            '    OLD = oSheet.Cells(cnt, 11).value
 
-        '    If OLD <> "YES" Then
-        '        isOld = True
-        '    End If
+            '    If OLD <> "YES" Then
+            '        isOld = True
+            '    End If
 
-        '    Dim TmpBarCode As String = oSheet.Cells(cnt, 10).value
-        '    Console.WriteLine("Description:" & oSheet.Cells(cnt, 3).value)
-        '    tmpKarats = .ParseKarat(oSheet.Cells(cnt, 3).value)
-        '    tmpgrams = .ParseGrams(oSheet.Cells(cnt, 3).value)
-        '    Dim description As String = oSheet.Cells(cnt, 2).value
-        '    Dim karatclass As String = oSheet.Cells(cnt, 13).value
-        '    Dim Subklass As String = oSheet.Cells(cnt, 14).value
+            '    Dim TmpBarCode As String = oSheet.Cells(cnt, 10).value
+            '    Console.WriteLine("Description:" & oSheet.Cells(cnt, 3).value)
+            '    tmpKarats = .ParseKarat(oSheet.Cells(cnt, 3).value)
+            '    tmpgrams = .ParseGrams(oSheet.Cells(cnt, 3).value)
+            '    Dim description As String = oSheet.Cells(cnt, 2).value
+            '    Dim karatclass As String = oSheet.Cells(cnt, 13).value
+            '    Dim Subklass As String = oSheet.Cells(cnt, 14).value
 
-        '    checcck = oSheet.Cells(cnt, 2).value
-        '    Dim isBrandnew As Boolean = False
-        '    Dim isWedding As Boolean = False
-        '    Dim isProposal As Boolean = False
-        '    Dim isSP_Auction As Boolean = False
+            '    checcck = oSheet.Cells(cnt, 2).value
+            '    Dim isBrandnew As Boolean = False
+            '    Dim isWedding As Boolean = False
+            '    Dim isProposal As Boolean = False
+            '    Dim isSP_Auction As Boolean = False
 
 
-        '                    For Each Str As String In SETPreOwn_.barcode_col
-        '                        If TmpBarCode.Contains(Str) Then
-        '                            If tmpKarats = 21 Or tmpKarats = 20 Then
+            '                    For Each Str As String In SETPreOwn_.barcode_col
+            '                        If TmpBarCode.Contains(Str) Then
+            '                            If tmpKarats = 21 Or tmpKarats = 20 Then
 
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                                GoTo SalePriceHere
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                                GoTo SalePriceHere
 
 
-        '                            Else
+            '                            Else
 
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
+            '                                SalePrice = (a * tmpgrams) * 2
 
-        '                                GoTo SalePriceHere
-        '                            End If
-        '                        End If
-        '                    Next
+            '                                GoTo SalePriceHere
+            '                            End If
+            '                        End If
+            '                    Next
 
-        '                    'wedding proposal
+            '                    'wedding proposal
 
 
-        '                    'Proposal package
+            '                    'Proposal package
 
 
 
-        '                    'For Each Str As String In pro_.barcode_col
-        '                    '    Dim isBrandnewSpecial As New BNJewelry
-        '                    '    If isBrandnewSpecial.IsBrandNewSpecial(TmpBarCode) Then Exit For
-        '                    '    If TmpBarCode.Contains(Str) Then
-        '                    '        '    If chkProWedGensan.Checked Then
-        '                    '        '        SalePrice = (2800 * tmpgrams) * 2
+            '                    'For Each Str As String In pro_.barcode_col
+            '                    '    Dim isBrandnewSpecial As New BNJewelry
+            '                    '    If isBrandnewSpecial.IsBrandNewSpecial(TmpBarCode) Then Exit For
+            '                    '    If TmpBarCode.Contains(Str) Then
+            '                    '        '    If chkProWedGensan.Checked Then
+            '                    '        '        SalePrice = (2800 * tmpgrams) * 2
 
-        '                    '        '    Else
+            '                    '        '    Else
 
-        '                    '        '        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' OR TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                    '        '        Dim ds As DataSet = LoadSQL(mySql)
-        '                    '        '        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                    '        '        SalePrice = (a * tmpgrams) * 2
-        '                    '        '    End If
-        '                    '        '    GoTo SalePriceHere
-        '                    '    End If
+            '                    '        '        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' OR TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                    '        '        Dim ds As DataSet = LoadSQL(mySql)
+            '                    '        '        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                    '        '        SalePrice = (a * tmpgrams) * 2
+            '                    '        '    End If
+            '                    '        '    GoTo SalePriceHere
+            '                    '    End If
 
 
-        '                    'Next
-        '                    'If TmpBarCode.Contains("VSP") And  Then
-        '                    '    SalePrice = (2850 * tmpgrams) * 2
+            '                    'Next
+            '                    'If TmpBarCode.Contains("VSP") And  Then
+            '                    '    SalePrice = (2850 * tmpgrams) * 2
 
-        '                    '    GoTo SalePriceHere
-        '                    'End If
-        '                    If TmpBarCode.Contains("BN") Or karatclass = "V" Then
-        '                        GoTo brandnewnotspecial
-        '                    End If
+            '                    '    GoTo SalePriceHere
+            '                    'End If
+            '                    If TmpBarCode.Contains("BN") Or karatclass = "V" Then
+            '                        GoTo brandnewnotspecial
+            '                    End If
 
-        '                    If TmpBarCode.Contains("JPCO") Or TmpBarCode.StartsWith("JPIL") Then
+            '                    If TmpBarCode.Contains("JPCO") Or TmpBarCode.StartsWith("JPIL") Then
 
 
 
-        '                        SalePrice = (3400 * tmpgrams) * 2
-        '                        GoTo SalePriceHere
+            '                        SalePrice = (3400 * tmpgrams) * 2
+            '                        GoTo SalePriceHere
 
-        '                    End If
-        '                    If karatclass = "P" Then
+            '                    End If
+            '                    If karatclass = "P" Then
 
-        '                        If TmpBarCode.Contains("JPN") Or TmpBarCode.Contains("JPCO") Then
+            '                        If TmpBarCode.Contains("JPN") Or TmpBarCode.Contains("JPCO") Then
 
-        '                            If tmpgrams < 1.51 Then
-        '                                SalePrice = (3350 * tmpgrams) * 2
+            '                            If tmpgrams < 1.51 Then
+            '                                SalePrice = (3350 * tmpgrams) * 2
 
-        '                                GoTo SalePriceHere
-        '                            Else
+            '                                GoTo SalePriceHere
+            '                            Else
 
 
 
-        '                                SalePrice = (3350 * tmpgrams) * 2
+            '                                SalePrice = (3350 * tmpgrams) * 2
 
-        '                                GoTo SalePriceHere
+            '                                GoTo SalePriceHere
 
-        '                            End If
+            '                            End If
 
 
-        '                        Else
-        '                            GoTo auctionprewon
-        '                        End If
+            '                        Else
+            '                            GoTo auctionprewon
+            '                        End If
 
-        '                    End If
-        '                    ''WEDDING RING =======================================
-        '                    If TmpBarCode.StartsWith("WJT") Or TmpBarCode.StartsWith("WHM") Or TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WIL") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("PCO") Or TmpBarCode.StartsWith("WJC") Then
-        '                        tmpcls = "A"
+            '                    End If
+            '                    ''WEDDING RING =======================================
+            '                    If TmpBarCode.StartsWith("WJT") Or TmpBarCode.StartsWith("WHM") Or TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WIL") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("PCO") Or TmpBarCode.StartsWith("WJC") Then
+            '                        tmpcls = "A"
 
 
 
 
-        '                        If TmpBarCode.StartsWith("WHM") Then
+            '                        If TmpBarCode.StartsWith("WHM") Then
 
-        '                            If chkProWedGensan.Checked Then
-        '                                SalePrice = (3300 * tmpgrams) * 2
+            '                            If chkProWedGensan.Checked Then
+            '                                SalePrice = (3300 * tmpgrams) * 2
 
-        '                            Else
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'   and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            Else
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'   and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                            End If
-        '                            GoTo SalePriceHere
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                            End If
+            '                            GoTo SalePriceHere
 
-        '                        End If
-        '                        If TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("WIL") Or TmpBarCode.StartsWith("WJC") Then
+            '                        End If
+            '                        If TmpBarCode.StartsWith("WSP") Or TmpBarCode.StartsWith("WCO") Or TmpBarCode.StartsWith("WIL") Or TmpBarCode.StartsWith("WJC") Then
 
-        '                            If chkProWedGensan.Checked Then
-        '                                SalePrice = (3300 * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            Else
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            If chkProWedGensan.Checked Then
+            '                                SalePrice = (3300 * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            Else
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            End If
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            End If
 
 
-        '                        End If
-        '                        If TmpBarCode.StartsWith("WJT") Then
+            '                        End If
+            '                        If TmpBarCode.StartsWith("WJT") Then
 
-        '                            If chkProWedGensan.Checked Then
-        '                                SalePrice = (3300 * tmpgrams) * 2
+            '                            If chkProWedGensan.Checked Then
+            '                                SalePrice = (3300 * tmpgrams) * 2
 
-        '                            Else
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            Else
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
+            '                                SalePrice = (a * tmpgrams) * 2
 
-        '                            End If
-        '                            GoTo SalePriceHere
+            '                            End If
+            '                            GoTo SalePriceHere
 
-        '                        End If
+            '                        End If
 
 
 
 
 
-        '                    End If
-        '                    ''PROPOSAL RING =======================================
-        '                    '     If TmpBarCode.Contains("PSPIL") Or TmpBarCode.Contains("PSPJT") Or TmpBarCode.Contains("PJC") Or TmpBarCode.StartsWith("PSPCO") Or TmpBarCode.StartsWith("PIL") Or TmpBarCode.StartsWith("PJT") Then
+            '                    End If
+            '                    ''PROPOSAL RING =======================================
+            '                    '     If TmpBarCode.Contains("PSPIL") Or TmpBarCode.Contains("PSPJT") Or TmpBarCode.Contains("PJC") Or TmpBarCode.StartsWith("PSPCO") Or TmpBarCode.StartsWith("PIL") Or TmpBarCode.StartsWith("PJT") Then
 
-        '                    If TmpBarCode.StartsWith("PS") Or TmpBarCode.StartsWith("PJC") Or TmpBarCode.StartsWith("PJT") Or TmpBarCode.StartsWith("PIL") Then
-        '                        If chkProWedGensan.Checked Then
-        '                            SalePrice = (3300 * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        Else
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                    If TmpBarCode.StartsWith("PS") Or TmpBarCode.StartsWith("PJC") Or TmpBarCode.StartsWith("PJT") Or TmpBarCode.StartsWith("PIL") Then
+            '                        If chkProWedGensan.Checked Then
+            '                            SalePrice = (3300 * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        Else
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' and TBLCLASS.BRANCH_ID=  " & branchid & " "
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        End If
-        '                    End If
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        End If
+            '                    End If
 
-        '                    If TmpBarCode.Contains("SP") Then
+            '                    If TmpBarCode.Contains("SP") Then
 
-        '                        If tmpgrams < 1.51 Then
-        '                            GoTo brandnewnotspecial
-        '                        Else
-        '                            GoTo brandnewspecial
-        '                        End If
+            '                        If tmpgrams < 1.51 Then
+            '                            GoTo brandnewnotspecial
+            '                        Else
+            '                            GoTo brandnewspecial
+            '                        End If
 
-        '                    ElseIf TmpBarCode.Contains("SNIL") Or TmpBarCode.Contains("SNJT") Or TmpBarCode.Contains("SNCO") Or TmpBarCode.Contains("SNJC") Then
+            '                    ElseIf TmpBarCode.Contains("SNIL") Or TmpBarCode.Contains("SNJT") Or TmpBarCode.Contains("SNCO") Or TmpBarCode.Contains("SNJC") Then
 
-        '                        If tmpgrams < 1.51 Then
-        '                            If tmpKarats = 18 Then
+            '                        If tmpgrams < 1.51 Then
+            '                            If tmpKarats = 18 Then
 
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            Else
-        '                                Dim test As String = oSheet.Cells(cnt, 1).value
-        '                                tmpKarats = 21
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            Else
+            '                                Dim test As String = oSheet.Cells(cnt, 1).value
+            '                                tmpKarats = 21
 
 
-        '                                SalePrice = (3550 * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            End If
+            '                                SalePrice = (3550 * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            End If
 
-        '                        Else
-        '                            If tmpKarats = 18 Then
+            '                        Else
+            '                            If tmpKarats = 18 Then
 
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
 
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            Else
-        '                                If chkProWedGensan.Checked Then
-        '                                    SalePrice = (3100 * tmpgrams) * 2
-        '                                End If
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            Else
+            '                                If chkProWedGensan.Checked Then
+            '                                    SalePrice = (3100 * tmpgrams) * 2
+            '                                End If
 
-        '                                tmpKarats = 21
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                tmpKarats = 21
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New With Stone' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            End If
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            End If
 
-        '                        End If
+            '                        End If
 
 
 
 
-        '                    ElseIf TmpBarCode.StartsWith("ST") Then
-        '                        ' tmpcls = "N"
-        '                        GoTo bradnewset
-        '                    End If
-        '                    '=================================================WEDDING AND PROPOSAL ================================================='
+            '                    ElseIf TmpBarCode.StartsWith("ST") Then
+            '                        ' tmpcls = "N"
+            '                        GoTo bradnewset
+            '                    End If
+            '                    '=================================================WEDDING AND PROPOSAL ================================================='
 
 
-        '                    'tmpKarats = 18
-        '                    'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' and TBLCLASS.BRANCH_ID=  " & branchid & " OR TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                    'Dim ds As DataSet = LoadSQL(mySql)
-        '                    'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                    'tmpKarats = 18
+            '                    'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='PROPOSAL RING' and TBLCLASS.BRANCH_ID=  " & branchid & " OR TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='WEDDING'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                    'Dim ds As DataSet = LoadSQL(mySql)
+            '                    'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                    'SalePrice = (a * tmpgrams) * 2
+            '                    'SalePrice = (a * tmpgrams) * 2
 
 
-        '                    'End If
-        '                    'GoTo SalePriceHere
+            '                    'End If
+            '                    'GoTo SalePriceHere
 
 
 
 
 
-        '                    Select Case oSheet.Cells(cnt, 12).value
-        '                        Case "BRAND NEW JWL"
-        '                            tmpcls = "N"
+            '                    Select Case oSheet.Cells(cnt, 12).value
+            '                        Case "BRAND NEW JWL"
+            '                            tmpcls = "N"
 
 
-        '                            GoTo brandnewnotspecial
-        '                        Case "WEDDING RING"
-        '                            tmpcls = "A"
-        '                            GoTo Gohere
-        '                        Case "PROPOSAL RING"
-        '                            tmpcls = "A"
-        '                            GoTo Gohere
-        '                        Case "BRAND NEW SET"
-        '                            tmpcls = "N"
-        '                            GoTo bradnewset
-        '                    End Select
+            '                            GoTo brandnewnotspecial
+            '                        Case "WEDDING RING"
+            '                            tmpcls = "A"
+            '                            GoTo Gohere
+            '                        Case "PROPOSAL RING"
+            '                            tmpcls = "A"
+            '                            GoTo Gohere
+            '                        Case "BRAND NEW SET"
+            '                            tmpcls = "N"
+            '                            GoTo bradnewset
+            '                    End Select
 
 
 
 
-        '                    For Each Str As String In SP_UACTION.load_all_barcode
-        '                        If TmpBarCode.Contains(Str) Then
-        '                            isSP_Auction = True
-        '                            Exit For
-        '                        End If
-        '                    Next
+            '                    For Each Str As String In SP_UACTION.load_all_barcode
+            '                        If TmpBarCode.Contains(Str) Then
+            '                            isSP_Auction = True
+            '                            Exit For
+            '                        End If
+            '                    Next
 
-        '                    If isSP_Auction Then
-        '                        tmpcls = "A"
-        '                        GoTo Gohere
-        '                    End If
+            '                    If isSP_Auction Then
+            '                        tmpcls = "A"
+            '                        GoTo Gohere
+            '                    End If
 
-        '                    'If isBrandnew Then
-        '                    '    tmpcls = "N"
-        '                    '    GoTo Gohere
-        '                    'Else
-        '                    tmpcls = .ParseClass(oSheet.Cells(cnt, 2).value)
-        '                    'End If
+            '                    'If isBrandnew Then
+            '                    '    tmpcls = "N"
+            '                    '    GoTo Gohere
+            '                    'Else
+            '                    tmpcls = .ParseClass(oSheet.Cells(cnt, 2).value)
+            '                    'End If
 
 
 
-        '                    If isOld Then
-        '                        If tmpcls = "B" Then
-        '                            tmpcls = "A"
-        '                        ElseIf tmpcls = "C" Then
-        '                            tmpcls = "B"
-        '                        End If
-        '                    End If
-        'brandnewnotspecial:
-        '                    '====================================================BRAND NEW======================================'
+            '                    If isOld Then
+            '                        If tmpcls = "B" Then
+            '                            tmpcls = "A"
+            '                        ElseIf tmpcls = "C" Then
+            '                            tmpcls = "B"
+            '                        End If
+            '                    End If
+            'brandnewnotspecial:
+            '                    '====================================================BRAND NEW======================================'
 
-        '                    If tmpgrams < 1.51 Then
-        '                        If tmpKarats = 18 Then
-        '                            'balik  
-        '                            Dim ax As String = description
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        Else
-        '                            tmpKarats = 21
-        '                            If chkProWedGensan.Checked Then
-        '                                SalePrice = (3550 * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            End If
-        '                            'bah
+            '                    If tmpgrams < 1.51 Then
+            '                        If tmpKarats = 18 Then
+            '                            'balik  
+            '                            Dim ax As String = description
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        Else
+            '                            tmpKarats = 21
+            '                            If chkProWedGensan.Checked Then
+            '                                SalePrice = (3550 * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            End If
+            '                            'bah
 
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
 
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                            SalePrice = (a * tmpgrams) * 2
+            '                            SalePrice = (a * tmpgrams) * 2
 
-        '                        End If
-        '                        GoTo SalePriceHere
+            '                        End If
+            '                        GoTo SalePriceHere
 
-        '                    Else
-        '                        If tmpKarats = 18 Then
+            '                    Else
+            '                        If tmpKarats = 18 Then
 
-        '                            If karatclass = "V" Then
+            '                            If karatclass = "V" Then
 
-        '                                If tmpgrams < 1.51 Then
-        '                                    SalePrice = (3300 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    SalePrice = (3150 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                End If
+            '                                If tmpgrams < 1.51 Then
+            '                                    SalePrice = (3300 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    SalePrice = (3150 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                End If
 
 
-        '                            End If
+            '                            End If
 
 
-        '                            Dim axxx As String = (oSheet.Cells(cnt, 2).value)
+            '                            Dim axxx As String = (oSheet.Cells(cnt, 2).value)
 
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        ElseIf tmpKarats = 21 Then
-        '                            If chkProWedGensan.Checked Then
-        '                                SalePrice = (3350 * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            End If
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        ElseIf tmpKarats = 12 Then
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        ElseIf tmpKarats = 14 Then
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        ElseIf tmpKarats = 16 Then
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        ElseIf tmpKarats = 22 Then
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
-        '                        End If
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        ElseIf tmpKarats = 21 Then
+            '                            If chkProWedGensan.Checked Then
+            '                                SalePrice = (3350 * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            End If
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        ElseIf tmpKarats = 12 Then
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        ElseIf tmpKarats = 14 Then
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        ElseIf tmpKarats = 16 Then
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        ElseIf tmpKarats = 22 Then
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLCLASS.CLASS='" & karatclass & "' AND TBLKARAT.CATEGORY='Brand New' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
+            '                        End If
 
-        '                    End If
+            '                    End If
 
-        '                    '========================================================'AUCTION PREOWN
-        'auctionprewon:
-        '                    If TmpBarCode.Contains("SET") Then
-        '                        If tmpKarats = 18 Then
+            '                    '========================================================'AUCTION PREOWN
+            'auctionprewon:
+            '                    If TmpBarCode.Contains("SET") Then
+            '                        If tmpKarats = 18 Then
 
 
-        '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                            Dim ds As DataSet = LoadSQL(mySql)
-        '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                            Dim ds As DataSet = LoadSQL(mySql)
+            '                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                            SalePrice = (a * tmpgrams) * 2
-        '                            GoTo SalePriceHere
+            '                            SalePrice = (a * tmpgrams) * 2
+            '                            GoTo SalePriceHere
 
-        '                        Else
-        '                            tmpKarats = 21
-        '                            If chkProWedGensan.Checked Then
-        '                                SalePrice = (3275 * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            Else
+            '                        Else
+            '                            tmpKarats = 21
+            '                            If chkProWedGensan.Checked Then
+            '                                SalePrice = (3275 * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            Else
 
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                                GoTo SalePriceHere
-        '                            End If
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                                GoTo SalePriceHere
+            '                            End If
 
-        '                        End If
-        '                    ElseIf TmpBarCode.Contains("SNO") Then
+            '                        End If
+            '                    ElseIf TmpBarCode.Contains("SNO") Then
 
 
 
-        '                        If tmpgrams < 1.51 Then
-        '                            If tmpKarats = 18 Then
+            '                        If tmpgrams < 1.51 Then
+            '                            If tmpKarats = 18 Then
 
-        '                                If chkProWedGensan.Checked Then
-        '                                    SalePrice = (3050 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                    'Dim ds As DataSet = LoadSQL(mySql)
-        '                                    'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                    SalePrice = (3050 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                End If
+            '                                If chkProWedGensan.Checked Then
+            '                                    SalePrice = (3050 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                    'Dim ds As DataSet = LoadSQL(mySql)
+            '                                    'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                    SalePrice = (3050 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                End If
 
-        '                            ElseIf tmpKarats = 21 Then
+            '                            ElseIf tmpKarats = 21 Then
 
 
-        '                                If chkProWedGensan.Checked Then
-        '                                    SalePrice = (3275 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    SalePrice = (3275 * tmpgrams) * 2
+            '                                If chkProWedGensan.Checked Then
+            '                                    SalePrice = (3275 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    SalePrice = (3275 * tmpgrams) * 2
 
-        '                                    GoTo SalePriceHere
-        '                                End If
-        '                            ElseIf tmpKarats = 14 Then
+            '                                    GoTo SalePriceHere
+            '                                End If
+            '                            ElseIf tmpKarats = 14 Then
 
-        '                                If tmpgrams < 1.51 Then
-        '                                    SalePrice = (2350 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    If chkProWedGensan.Checked Then
-        '                                        SalePrice = (2350 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
+            '                                If tmpgrams < 1.51 Then
+            '                                    SalePrice = (2350 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    If chkProWedGensan.Checked Then
+            '                                        SalePrice = (2350 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
 
 
-        '                                        SalePrice = (2350 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
+            '                                        SalePrice = (2350 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
 
-        '                                End If
-        '                            End If
-        '                        Else
-        '                            If tmpKarats = 18 Then
+            '                                End If
+            '                            End If
+            '                        Else
+            '                            If tmpKarats = 18 Then
 
-        '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
-        '                                    If chkProWedGensan.Checked Then
-        '                                        SalePrice = (2900 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-        '                                        SalePrice = (2900 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-        '                                If tmpgrams >= 10 Then
-        '                                    If chkProWedGensan.Checked Then
-        '                                        SalePrice = (2550 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-        '                                        SalePrice = (2550 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
+            '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
+            '                                    If chkProWedGensan.Checked Then
+            '                                        SalePrice = (2900 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+            '                                        SalePrice = (2900 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+            '                                If tmpgrams >= 10 Then
+            '                                    If chkProWedGensan.Checked Then
+            '                                        SalePrice = (2550 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+            '                                        SalePrice = (2550 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
 
 
-        '                            ElseIf tmpKarats = 21 Then
-        '                                If chkProWedGensan.Checked Then
-        '                                    If tmpgrams >= 10 Then
-        '                                        SalePrice = (2975 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                    SalePrice = (3275 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    If tmpgrams >= 10 Then
-        '                                        SalePrice = (2975 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
+            '                            ElseIf tmpKarats = 21 Then
+            '                                If chkProWedGensan.Checked Then
+            '                                    If tmpgrams >= 10 Then
+            '                                        SalePrice = (2975 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                    SalePrice = (3275 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    If tmpgrams >= 10 Then
+            '                                        SalePrice = (2975 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
 
 
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                End If
-        '                            ElseIf tmpKarats = 14 Then
-        '                                If chkProWedGensan.Checked Then
-        '                                    SalePrice = (2100 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                End If
-        '                            End If
-
-        '                        End If
-
-        '                    ElseIf TmpBarCode.Contains("SPP") Then
-
-        '                        If tmpgrams < 1.51 Then
-        '                            If tmpKarats = 18 Then
-
-
-        '                                'derrr
-
-        '                                If chkProWedGensan.Checked Then
-        '                                    SalePrice = (3050 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                End If
-
-        '                            ElseIf tmpKarats = 21 Then
-        '                                If chkProWedGensan.Checked Then
-        '                                    SalePrice = (3275 * tmpgrams) * 2
-        '                                Else
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                End If
-        '                            ElseIf tmpKarats = 12 Then
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                            ElseIf tmpKarats = 16 Then
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & "AND TBLCLASS.CLASS='A'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-        '                            ElseIf tmpKarats = 14 Then
-
-
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & "AND TBLCLASS.CLASS='A'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-
-        '                            End If
-        '                            GoTo SalePriceHere
-        '                        Else
-
-
-
-        '                            If tmpKarats = 18 Then
-
-        '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
-        '                                    If chkProWedGensan.Checked Then
-        '                                        SalePrice = (2800 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-        '                                        SalePrice = (2800 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-        '                                If tmpgrams >= 10 Then
-        '                                    If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                        SalePrice = (2550 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-        '                                        SalePrice = (2550 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-
-        '                                'If chkProWedGensan.Checked Then
-        '                                '    SalePrice = (2900 * tmpgrams) * 2
-        '                                '    GoTo SalePriceHere
-        '                                'Else
-        '                                '    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction-SPP' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                '    Dim ds As DataSet = LoadSQL(mySql)
-        '                                '    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                '    SalePrice = (a * tmpgrams) * 2
-        '                                '    GoTo SalePriceHere
-        '                                'End If
-
-        '                            ElseIf tmpKarats = 21 Then
-        '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
-        '                                    If chkProWedGensan.Checked Then
-        '                                        SalePrice = (3175 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-        '                                        SalePrice = (3175 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-
-        '                                If tmpgrams >= 10 Then
-        '                                    If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                        SalePrice = (2975 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-        '                                        SalePrice = (2975 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-        '                                If chkProWedGensan.Checked Then
-        '                                    SalePrice = (2900 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction-SPP'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-
-
-        '                                End If
-
-        '                            End If
-
-        '                        End If
-        '                    Else
-
-        '                        If tmpgrams < 1.51 Then
-        '                            'CLASS A
-        '                            If tmpKarats = 18 Then
-        '                                If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                    SalePrice = (3050 * tmpgrams) * 2
-        '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
-        '                                    SalePrice = (2400 * tmpgrams) * 2
-        '                                Else
-
-        '                                    SalePrice = (3050 * tmpgrams) * 2
-
-        '                                    GoTo SalePriceHere
-        '                                End If
-
-        '                            ElseIf tmpKarats = 21 Then
-        '                                If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                    SalePrice = (3275 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
-        '                                    SalePrice = (2600 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                ElseIf Subklass = "B" Then
-        '                                    SalePrice = (2600 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                Else
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                End If
-        '                            ElseIf tmpKarats = 12 Then
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                            ElseIf tmpKarats = 16 Then
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-        '                            ElseIf tmpKarats = 14 Then
-        '                                If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                    SalePrice = (2350 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-
-        '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
-        '                                    SalePrice = (1700 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-
-        '                                ElseIf Subklass = "B" Then
-        '                                    SalePrice = (1700 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                End If
-
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                                'CLASS B
-        '                                'ElseIf tmpKarats = 18 Then
-        '                                '    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                '    Dim ds As DataSet = LoadSQL(mySql)
-        '                                '    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                '    SalePrice = (a * tmpgrams) * 2
-
-        '                                'ElseIf tmpKarats = 21 Then
-        '                                '    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                '    Dim ds As DataSet = LoadSQL(mySql)
-        '                                '    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                '    SalePrice = (a * tmpgrams) * 2
-        '                            End If
-        '                            GoTo SalePriceHere
-        '                        Else
-        '                            If tmpKarats = 18 Then
-        '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
-        '                                    If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                        SalePrice = (2750 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    ElseIf Subklass = "A" Then
-        '                                        SalePrice = (2750 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-        '                                If tmpgrams >= 10 Then
-        '                                    If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                        SalePrice = (2550 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    ElseIf Subklass = "A" Then
-        '                                        SalePrice = (2550 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-        '                                If chkProWedGensan.Checked And Subklass = "B" Then
-        '                                    SalePrice = (2600 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                End If
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction' and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-        '                            ElseIf tmpKarats = 21 Then
-        '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
-        '                                    If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                        SalePrice = (3075 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-        '                                        SalePrice = (3075 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-        '                                End If
-        '                                If tmpgrams >= 10 Then
-        '                                    If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                        SalePrice = (2975 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-
-        '                                    End If
-
-        '                                    If Subklass = "A" Then
-        '                                        SalePrice = (2975 * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-
-        '                                    End If
-        '                                End If
-
-        '                                If chkProWedGensan.Checked And Subklass = "B" Then
-        '                                    SalePrice = (2850 * tmpgrams) * 2
-        '                                    GoTo SalePriceHere
-        '                                End If
-
-        '                                'dd
-        '                                'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                'Dim ds As DataSet = LoadSQL(mySql)
-        '                                'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                'SalePrice = (a * tmpgrams) * 2
-
-        '                            ElseIf tmpKarats = 12 Then
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-        '                            ElseIf tmpKarats = 16 Then
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-        '                            ElseIf tmpKarats = 14 Then
-        '                                If chkProWedGensan.Checked And Subklass = "A" Then
-        '                                    SalePrice = (2200 * tmpgrams) * 2
-        '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
-
-        '                                    SalePrice = (1700 * tmpgrams) * 2
-        '                                Else
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                End If
-
-        '                            ElseIf tmpKarats = 22 Then
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-        '                                'CLASS B
-        '                            ElseIf tmpKarats = 18 Then
-
-
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-
-        '                            ElseIf tmpKarats = 21 Then
-
-
-
-        '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
-        '                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                SalePrice = (a * tmpgrams) * 2
-        '                            End If
-        '                            Dim axxxx As String = Val(oSheet.Cells(cnt, 3).value)
-        '                            GoTo SalePriceHere
-        '                        End If
-        '                    End If
-
-
-
-
-
-
-
-
-        'Gohere:
-
-        '                    Dim recCnt2 As Single = 0
-        '                    If tmpKarats = 0.0 Then
-        '                        MsgBox("Description '" & oSheet.Cells(cnt, 3).value & "' is not valid, unable to parse.", MsgBoxStyle.Critical, "Error")
-
-        '                        With oSheet
-        '                            oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
-        '                            oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
-        '                            oSheet1.Cells(cnt, 3) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 4) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 5) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 6) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 7) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 8) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 9) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 10) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 11) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 12) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 13) = "UNKNOWN"
-        '                            oSheet1.Cells(cnt, 14) = "UNKNOWN"
-        '                        End With
-        '                    Else
-        '                        Dim isSetBrandNew As Boolean = False
-        '                        'Auction settings 
-
-        '                        If isSP_Auction = True Then
-
-        '                            If tmpKarats = 18 Then
-        '                                If tmpgrams < 1.51 Then
-
-
-        '                                    Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
-        '                                    SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
-        '                                Else
-        '                                    'Auction SPECIAL 18
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                End If
-        '                            ElseIf tmpKarats = 20 OrElse tmpKarats = 21 Then
-        '                                If tmpgrams < 1 Then
-        '                                    Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
-        '                                    SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
-        '                                Else
-
-
-        '                                    'AUction Special QUERY 20 and 21 karat
-        '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                    Dim ds As DataSet = LoadSQL(mySql)
-        '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-
-        '                                    SalePrice = (a * tmpgrams) * 2
-        '                                End If
-        '                            Else
-        '                                If tmpgrams < 1.51 Then
-        '                                    Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
-        '                                    SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
-        '                                Else
-        '                                    SalePrice = (2780 * tmpgrams) * 2
-        '                                End If
-        '                            End If
-        '                        Else
-
-        '                            If tmpgrams < 1.51 Then
-
-
-        '                                Dim categories = .ParseCategory(oSheet.Cells(cnt, 2).value, oSheet.Cells(cnt, 10).value, oSheet.Cells(cnt, 12).value)
-
-        '                                Select Case categories
-        '                                    Case "Auction"
-        '                                        Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
-        '                                        SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
-        '                                    Case "Brand New"
-        '                                        For Each Str As String In SET_BRANDNEW.barcode_col
-        '                                            If TmpBarCode.Contains(Str) Then
-        '                                                isSetBrandNew = True
-
-        '                                                Exit For
-        '                                            End If
-        '                                        Next
-
-        '                                        Dim isSpecial As Boolean = False
-        '                                        For Each Str As String In bnj_special.barcode_col
-        '                                            If TmpBarCode.Contains(Str) Then
-        '                                                isSpecial = True
-        '                                                Exit For
-        '                                            End If
-        '                                        Next
-
-        '                                        If isSetBrandNew Then
-
-        '                                            '==========================================================================BRAND NEW SET=========================================================================================================
-        'bradnewset:
-
-
-        '                                            'If tmpgrams < 1.51 Then
-
-        '                                            '    If tmpKarats = 18 Then
-        '                                            '        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set Less 1G'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                            '        Dim ds As DataSet = LoadSQL(mySql)
-        '                                            '        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                            '        SalePrice = (a * tmpgrams) * 2
-        '                                            '    Else
-        '                                            '        tmpKarats = 21
-        '                                            '        If chkProWedGensan.Checked Then
-        '                                            '            SalePrice = (3200 * tmpgrams) * 2
-        '                                            '            GoTo SalePriceHere
-        '                                            '        End If
-        '                                            '        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set Less 1G'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                            '        Dim ds As DataSet = LoadSQL(mySql)
-        '                                            '        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                            '        SalePrice = (a * tmpgrams) * 2
-        '                                            '    End If
-
-        '                                            'Else
-        '                                            If tmpKarats = 18 Then
-        '                                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                                SalePrice = (a * tmpgrams) * 2
-        '                                                GoTo SalePriceHere
-        '                                            Else
-        '                                                tmpKarats = 21
-        '                                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set' and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                                Dim ds As DataSet = LoadSQL(mySql)
-        '                                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                                SalePrice = (a * tmpgrams) * 2
-        '                                                GoTo SalePriceHere
-        '                                            End If
-        '                                            '    End If
-
-        '                                        End If
-
-        '                                        '==========================================================================BRAND NEW SET=========================================================================================================
-        '                                End Select
-
-        '                            Else
-
-        '                                For Each Str As String In SET_BRANDNEW.barcode_col
-        '                                    If TmpBarCode.Contains(Str) Then
-        '                                        isSetBrandNew = True
-
-        '                                        Exit For
-        '                                    End If
-        '                                Next
-
-        '                                If isSetBrandNew Then
-        '                                    If tmpKarats = 18 Then
-        '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                        Dim ds As DataSet = LoadSQL(mySql)
-        '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                        SalePrice = (a * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-
-        '                                    Else
-        '                                        tmpKarats = 21
-        '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                        Dim ds As DataSet = LoadSQL(mySql)
-        '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                        SalePrice = (a * tmpgrams) * 2
-        '                                        MessageBox.Show("isSetBrandNew")
-        '                                    End If
-
-        '                                    GoTo SalePriceHere
-        '                                End If
-
-        '                                .LoadKarat(.ParseCategory(oSheet.Cells(cnt, 2).value, oSheet.Cells(cnt, 10).value, oSheet.Cells(cnt, 12).value), tmpKarats)
-        '                                tmpClass.LoadClass(.KaratID, tmpcls)
-
-        '                                Dim isSpecial As Boolean = False
-        '                                For Each Str As String In bnj_special.barcode_col
-        '                                    If TmpBarCode.Contains(Str) Then
-        '                                        isSpecial = True
-        '                                        Exit For
-        '                                    End If
-        '                                Next
-
-        '                                If isSpecial Then
-
-        'brandnewspecial:
-
-
-
-
-
-        '                                    If tmpKarats = 18 Then
-
-        '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                        Dim ds As DataSet = LoadSQL(mySql)
-        '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-
-        '                                        SalePrice = (a * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    Else
-
-        '                                        tmpKarats = 21
-        '                                        If chkProWedGensan.Checked Then
-        '                                            SalePrice = (3450 * tmpgrams) * 2
-        '                                            GoTo SalePriceHere
-        '                                        End If
-        '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
-        '                                        Dim ds As DataSet = LoadSQL(mySql)
-        '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-        '                                        SalePrice = (a * tmpgrams) * 2
-        '                                        GoTo SalePriceHere
-        '                                    End If
-
-        '                                End If
-
-        '                            End If
-
-        '                        End If
-
-
-
-
-
-        'SalePriceHere:
-        ''                        Console.WriteLine(SalePrice)
-
-        'With oSheet
-        '    oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
-        '    oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
-        '    oSheet1.Cells(cnt, 3) = ""
-        '    oSheet1.Cells(cnt, 4) = oSheet.Cells(cnt, 12).value
-        '    oSheet1.Cells(cnt, 5) = ""
-        '    oSheet1.Cells(cnt, 6) = "PIECE"
-        '    oSheet1.Cells(cnt, 7) = 0
-        '    oSheet1.Cells(cnt, 8) = SalePrice
-        '    oSheet1.Cells(cnt, 9) = "Y"
-        '    oSheet1.Cells(cnt, 10) = "Y"
-        '    oSheet1.Cells(cnt, 11) = "N"
-        '    oSheet1.Cells(cnt, 12) = "Y"
-        '    oSheet1.Cells(cnt, 13) = 50
-        '    oSheet1.Cells(cnt, 14) = 40
-
-        'End With
-        '            End If
-
-        'pbstatus.Value = pbstatus.Value + 1
-        'Application.DoEvents()
-        'lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
-        'tmpcls = "" : isOld = False
-        'End With
-
-
-        'Catch ex As Exception
-        'MessageBox.Show(oSheet.Cells(cnt, 2).value)
-
-        '    End Try
-        'Next
-
-
-
-
-
-        sfdPath.FileName = BRANCH.Text & Now.ToString("MMddyyyy")
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                End If
+            '                            ElseIf tmpKarats = 14 Then
+            '                                If chkProWedGensan.Checked Then
+            '                                    SalePrice = (2100 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction - With Stone'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                End If
+            '                            End If
+
+            '                        End If
+
+            '                    ElseIf TmpBarCode.Contains("SPP") Then
+
+            '                        If tmpgrams < 1.51 Then
+            '                            If tmpKarats = 18 Then
+
+
+            '                                'derrr
+
+            '                                If chkProWedGensan.Checked Then
+            '                                    SalePrice = (3050 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                End If
+
+            '                            ElseIf tmpKarats = 21 Then
+            '                                If chkProWedGensan.Checked Then
+            '                                    SalePrice = (3275 * tmpgrams) * 2
+            '                                Else
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                End If
+            '                            ElseIf tmpKarats = 12 Then
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='A'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                            ElseIf tmpKarats = 16 Then
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & "AND TBLCLASS.CLASS='A'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+            '                            ElseIf tmpKarats = 14 Then
+
+
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction-SPP-less' and TBLCLASS.BRANCH_ID=  " & branchid & "AND TBLCLASS.CLASS='A'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+
+            '                            End If
+            '                            GoTo SalePriceHere
+            '                        Else
+
+
+
+            '                            If tmpKarats = 18 Then
+
+            '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
+            '                                    If chkProWedGensan.Checked Then
+            '                                        SalePrice = (2800 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+            '                                        SalePrice = (2800 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+            '                                If tmpgrams >= 10 Then
+            '                                    If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                        SalePrice = (2550 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+            '                                        SalePrice = (2550 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+
+            '                                'If chkProWedGensan.Checked Then
+            '                                '    SalePrice = (2900 * tmpgrams) * 2
+            '                                '    GoTo SalePriceHere
+            '                                'Else
+            '                                '    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction-SPP' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                '    Dim ds As DataSet = LoadSQL(mySql)
+            '                                '    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                '    SalePrice = (a * tmpgrams) * 2
+            '                                '    GoTo SalePriceHere
+            '                                'End If
+
+            '                            ElseIf tmpKarats = 21 Then
+            '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
+            '                                    If chkProWedGensan.Checked Then
+            '                                        SalePrice = (3175 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+            '                                        SalePrice = (3175 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+
+            '                                If tmpgrams >= 10 Then
+            '                                    If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                        SalePrice = (2975 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+            '                                        SalePrice = (2975 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+            '                                If chkProWedGensan.Checked Then
+            '                                    SalePrice = (2900 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction-SPP'  and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+
+
+            '                                End If
+
+            '                            End If
+
+            '                        End If
+            '                    Else
+
+            '                        If tmpgrams < 1.51 Then
+            '                            'CLASS A
+            '                            If tmpKarats = 18 Then
+            '                                If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                    SalePrice = (3050 * tmpgrams) * 2
+            '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
+            '                                    SalePrice = (2400 * tmpgrams) * 2
+            '                                Else
+
+            '                                    SalePrice = (3050 * tmpgrams) * 2
+
+            '                                    GoTo SalePriceHere
+            '                                End If
+
+            '                            ElseIf tmpKarats = 21 Then
+            '                                If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                    SalePrice = (3275 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
+            '                                    SalePrice = (2600 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                ElseIf Subklass = "B" Then
+            '                                    SalePrice = (2600 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                Else
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                End If
+            '                            ElseIf tmpKarats = 12 Then
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                            ElseIf tmpKarats = 16 Then
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+            '                            ElseIf tmpKarats = 14 Then
+            '                                If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                    SalePrice = (2350 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+
+            '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
+            '                                    SalePrice = (1700 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+
+            '                                ElseIf Subklass = "B" Then
+            '                                    SalePrice = (1700 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                End If
+
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                                'CLASS B
+            '                                'ElseIf tmpKarats = 18 Then
+            '                                '    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                '    Dim ds As DataSet = LoadSQL(mySql)
+            '                                '    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                '    SalePrice = (a * tmpgrams) * 2
+
+            '                                'ElseIf tmpKarats = 21 Then
+            '                                '    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                '    Dim ds As DataSet = LoadSQL(mySql)
+            '                                '    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                '    SalePrice = (a * tmpgrams) * 2
+            '                            End If
+            '                            GoTo SalePriceHere
+            '                        Else
+            '                            If tmpKarats = 18 Then
+            '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
+            '                                    If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                        SalePrice = (2750 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    ElseIf Subklass = "A" Then
+            '                                        SalePrice = (2750 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+            '                                If tmpgrams >= 10 Then
+            '                                    If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                        SalePrice = (2550 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    ElseIf Subklass = "A" Then
+            '                                        SalePrice = (2550 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+            '                                If chkProWedGensan.Checked And Subklass = "B" Then
+            '                                    SalePrice = (2600 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                End If
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction' and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+            '                            ElseIf tmpKarats = 21 Then
+            '                                If tmpgrams >= 1.51 And tmpgrams <= 9.99 Then
+            '                                    If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                        SalePrice = (3075 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+            '                                        SalePrice = (3075 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+            '                                End If
+            '                                If tmpgrams >= 10 Then
+            '                                    If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                        SalePrice = (2975 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+
+            '                                    End If
+
+            '                                    If Subklass = "A" Then
+            '                                        SalePrice = (2975 * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+
+            '                                    End If
+            '                                End If
+
+            '                                If chkProWedGensan.Checked And Subklass = "B" Then
+            '                                    SalePrice = (2850 * tmpgrams) * 2
+            '                                    GoTo SalePriceHere
+            '                                End If
+
+            '                                'dd
+            '                                'Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                'Dim ds As DataSet = LoadSQL(mySql)
+            '                                'Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                'SalePrice = (a * tmpgrams) * 2
+
+            '                            ElseIf tmpKarats = 12 Then
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+            '                            ElseIf tmpKarats = 16 Then
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+            '                            ElseIf tmpKarats = 14 Then
+            '                                If chkProWedGensan.Checked And Subklass = "A" Then
+            '                                    SalePrice = (2200 * tmpgrams) * 2
+            '                                ElseIf chkProWedGensan.Checked And Subklass = "B" Then
+
+            '                                    SalePrice = (1700 * tmpgrams) * 2
+            '                                Else
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                End If
+
+            '                            ElseIf tmpKarats = 22 Then
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & " AND TBLKARAT.CATEGORY='Auction'  and TBLCLASS.BRANCH_ID=  " & branchid & "  AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+            '                                'CLASS B
+            '                            ElseIf tmpKarats = 18 Then
+
+
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+
+            '                            ElseIf tmpKarats = 21 Then
+
+
+
+            '                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  AND TBLKARAT.CATEGORY='Auction - Less 1G' and TBLCLASS.BRANCH_ID=  " & branchid & " AND TBLCLASS.CLASS='" & Subklass & "'"
+            '                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                SalePrice = (a * tmpgrams) * 2
+            '                            End If
+            '                            Dim axxxx As String = Val(oSheet.Cells(cnt, 3).value)
+            '                            GoTo SalePriceHere
+            '                        End If
+            '                    End If
+
+
+
+
+
+
+
+
+            'Gohere:
+
+            '                    Dim recCnt2 As Single = 0
+            '                    If tmpKarats = 0.0 Then
+            '                        MsgBox("Description '" & oSheet.Cells(cnt, 3).value & "' is not valid, unable to parse.", MsgBoxStyle.Critical, "Error")
+
+            '                        With oSheet
+            '                            oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
+            '                            oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
+            '                            oSheet1.Cells(cnt, 3) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 4) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 5) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 6) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 7) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 8) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 9) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 10) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 11) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 12) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 13) = "UNKNOWN"
+            '                            oSheet1.Cells(cnt, 14) = "UNKNOWN"
+            '                        End With
+            '                    Else
+            '                        Dim isSetBrandNew As Boolean = False
+            '                        'Auction settings 
+
+            '                        If isSP_Auction = True Then
+
+            '                            If tmpKarats = 18 Then
+            '                                If tmpgrams < 1.51 Then
+
+
+            '                                    Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
+            '                                    SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
+            '                                Else
+            '                                    'Auction SPECIAL 18
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                End If
+            '                            ElseIf tmpKarats = 20 OrElse tmpKarats = 21 Then
+            '                                If tmpgrams < 1 Then
+            '                                    Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
+            '                                    SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
+            '                                Else
+
+
+            '                                    'AUction Special QUERY 20 and 21 karat
+            '                                    Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Auction Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                    Dim ds As DataSet = LoadSQL(mySql)
+            '                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+
+            '                                    SalePrice = (a * tmpgrams) * 2
+            '                                End If
+            '                            Else
+            '                                If tmpgrams < 1.51 Then
+            '                                    Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
+            '                                    SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
+            '                                Else
+            '                                    SalePrice = (2780 * tmpgrams) * 2
+            '                                End If
+            '                            End If
+            '                        Else
+
+            '                            If tmpgrams < 1.51 Then
+
+
+            '                                Dim categories = .ParseCategory(oSheet.Cells(cnt, 2).value, oSheet.Cells(cnt, 10).value, oSheet.Cells(cnt, 12).value)
+
+            '                                Select Case categories
+            '                                    Case "Auction"
+            '                                        Dim tmp_LessOneGramPrice As Double = getLess1GramPrice(tmpKarats, tmpcls)
+            '                                        SalePrice = (tmp_LessOneGramPrice * tmpgrams) * 2
+            '                                    Case "Brand New"
+            '                                        For Each Str As String In SET_BRANDNEW.barcode_col
+            '                                            If TmpBarCode.Contains(Str) Then
+            '                                                isSetBrandNew = True
+
+            '                                                Exit For
+            '                                            End If
+            '                                        Next
+
+            '                                        Dim isSpecial As Boolean = False
+            '                                        For Each Str As String In bnj_special.barcode_col
+            '                                            If TmpBarCode.Contains(Str) Then
+            '                                                isSpecial = True
+            '                                                Exit For
+            '                                            End If
+            '                                        Next
+
+            '                                        If isSetBrandNew Then
+
+            '                                            '==========================================================================BRAND NEW SET=========================================================================================================
+            'bradnewset:
+
+
+            '                                            'If tmpgrams < 1.51 Then
+
+            '                                            '    If tmpKarats = 18 Then
+            '                                            '        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set Less 1G'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                            '        Dim ds As DataSet = LoadSQL(mySql)
+            '                                            '        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                            '        SalePrice = (a * tmpgrams) * 2
+            '                                            '    Else
+            '                                            '        tmpKarats = 21
+            '                                            '        If chkProWedGensan.Checked Then
+            '                                            '            SalePrice = (3200 * tmpgrams) * 2
+            '                                            '            GoTo SalePriceHere
+            '                                            '        End If
+            '                                            '        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set Less 1G'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                            '        Dim ds As DataSet = LoadSQL(mySql)
+            '                                            '        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                            '        SalePrice = (a * tmpgrams) * 2
+            '                                            '    End If
+
+            '                                            'Else
+            '                                            If tmpKarats = 18 Then
+            '                                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                                SalePrice = (a * tmpgrams) * 2
+            '                                                GoTo SalePriceHere
+            '                                            Else
+            '                                                tmpKarats = 21
+            '                                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set' and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                                Dim ds As DataSet = LoadSQL(mySql)
+            '                                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                                SalePrice = (a * tmpgrams) * 2
+            '                                                GoTo SalePriceHere
+            '                                            End If
+            '                                            '    End If
+
+            '                                        End If
+
+            '                                        '==========================================================================BRAND NEW SET=========================================================================================================
+            '                                End Select
+
+            '                            Else
+
+            '                                For Each Str As String In SET_BRANDNEW.barcode_col
+            '                                    If TmpBarCode.Contains(Str) Then
+            '                                        isSetBrandNew = True
+
+            '                                        Exit For
+            '                                    End If
+            '                                Next
+
+            '                                If isSetBrandNew Then
+            '                                    If tmpKarats = 18 Then
+            '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                        Dim ds As DataSet = LoadSQL(mySql)
+            '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                        SalePrice = (a * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+
+            '                                    Else
+            '                                        tmpKarats = 21
+            '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Set'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                        Dim ds As DataSet = LoadSQL(mySql)
+            '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                        SalePrice = (a * tmpgrams) * 2
+            '                                        MessageBox.Show("isSetBrandNew")
+            '                                    End If
+
+            '                                    GoTo SalePriceHere
+            '                                End If
+
+            '                                .LoadKarat(.ParseCategory(oSheet.Cells(cnt, 2).value, oSheet.Cells(cnt, 10).value, oSheet.Cells(cnt, 12).value), tmpKarats)
+            '                                tmpClass.LoadClass(.KaratID, tmpcls)
+
+            '                                Dim isSpecial As Boolean = False
+            '                                For Each Str As String In bnj_special.barcode_col
+            '                                    If TmpBarCode.Contains(Str) Then
+            '                                        isSpecial = True
+            '                                        Exit For
+            '                                    End If
+            '                                Next
+
+            '                                If isSpecial Then
+
+            'brandnewspecial:
+
+
+
+
+
+            '                                    If tmpKarats = 18 Then
+
+            '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                        Dim ds As DataSet = LoadSQL(mySql)
+            '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+
+            '                                        SalePrice = (a * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    Else
+
+            '                                        tmpKarats = 21
+            '                                        If chkProWedGensan.Checked Then
+            '                                            SalePrice = (3450 * tmpgrams) * 2
+            '                                            GoTo SalePriceHere
+            '                                        End If
+            '                                        Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='Brand New Special'and TBLCLASS.BRANCH_ID=  " & branchid & ""
+            '                                        Dim ds As DataSet = LoadSQL(mySql)
+            '                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+            '                                        SalePrice = (a * tmpgrams) * 2
+            '                                        GoTo SalePriceHere
+            '                                    End If
+
+            '                                End If
+
+            '                            End If
+
+            '                        End If
+
+
+
+
+
+            'SalePriceHere:
+            ''                        Console.WriteLine(SalePrice)
+
+            'With oSheet
+            '    oSheet1.Cells(cnt, 1) = oSheet.Cells(cnt, 2).value
+            '    oSheet1.Cells(cnt, 2) = oSheet.Cells(cnt, 3).value
+            '    oSheet1.Cells(cnt, 3) = ""
+            '    oSheet1.Cells(cnt, 4) = oSheet.Cells(cnt, 12).value
+            '    oSheet1.Cells(cnt, 5) = ""
+            '    oSheet1.Cells(cnt, 6) = "PIECE"
+            '    oSheet1.Cells(cnt, 7) = 0
+            '    oSheet1.Cells(cnt, 8) = SalePrice
+            '    oSheet1.Cells(cnt, 9) = "Y"
+            '    oSheet1.Cells(cnt, 10) = "Y"
+            '    oSheet1.Cells(cnt, 11) = "N"
+            '    oSheet1.Cells(cnt, 12) = "Y"
+            '    oSheet1.Cells(cnt, 13) = 50
+            '    oSheet1.Cells(cnt, 14) = 40
+
+            'End With
+            '            End If
+
+            'pbstatus.Value = pbstatus.Value + 1
+            'Application.DoEvents()
+            'lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
+            'tmpcls = "" : isOld = False
+            'End With
+
+
+
+
+
+
+
+            sfdPath.FileName = BRANCH.Text & Now.ToString("MMddyyyy")
             tmpSavePath = tmpSavePath & "/" & sfdPath.FileName
 
         tmpSavePath = tmpSavePath & "_JWL"
