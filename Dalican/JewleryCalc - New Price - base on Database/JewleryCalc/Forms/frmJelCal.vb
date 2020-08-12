@@ -205,7 +205,7 @@ Public Class frmJelCal
 
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND Less='1.5' AND Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
                                             Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
@@ -295,7 +295,9 @@ Public Class frmJelCal
                                             Subklass = "N"
                                         End If
 
-
+                                        If Str.StartsWith("BN") Then
+                                            Subklass = "N"
+                                        End If
 
                                         Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "' AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
@@ -393,6 +395,15 @@ Public Class frmJelCal
 
                                         Case < 1.51
                                             Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='1.5'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+                                            GoTo SalePriceHere
+
+
+                                        Case >= 10
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  Greater='10'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
                                             Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
