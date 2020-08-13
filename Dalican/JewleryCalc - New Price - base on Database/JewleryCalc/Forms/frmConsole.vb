@@ -52,6 +52,8 @@
             With SelectedClass
                 .CLassificaton = item.SubItems(1).Text
                 .Price = item.SubItems(2).Text
+                .lessthan = item.SubItems(3).Text
+                .greaterthan = item.SubItems(4).Text
             End With
             If item.Text = "" Then Exit For
             ClassCol.Add(SelectedClass)
