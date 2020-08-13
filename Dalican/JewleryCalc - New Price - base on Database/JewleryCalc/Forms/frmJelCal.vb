@@ -177,9 +177,10 @@ Public Class frmJelCal
 
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   less='1.5' AND Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
                                             Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
 
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
@@ -187,7 +188,7 @@ Public Class frmJelCal
 
                                         Case Else
 
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE    less='0' AND Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
                                             Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
