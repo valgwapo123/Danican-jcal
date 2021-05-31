@@ -78,7 +78,8 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -94,7 +95,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -152,7 +153,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -167,7 +168,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -182,7 +183,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -197,7 +198,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -212,7 +213,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -228,7 +229,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -244,7 +245,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -259,7 +260,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -274,7 +275,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
@@ -289,7 +290,24 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode not found")
+            Console.WriteLine("barcode not found")
+            Exit Sub
+        End If
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            loadbyRow(dr)
+            barcode_col.Add(_Barcode)
+
+        Next
+    End Sub
+
+
+    Friend Sub LOAD_REPAIRED()
+        mysql = "select * from " & tbl & " where category = 'REPAIRED'"
+        Dim ds As DataSet = LoadSQL(mysql, tbl)
+
+        If ds.Tables(0).Rows.Count = 0 Then
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 

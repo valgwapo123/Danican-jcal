@@ -59,6 +59,9 @@ Public Class frmJelCal
         Dim tmpJapan_B_C_class As String = ""
 
 
+        Dim Repaired_ As New BNJewelry
+        Repaired_.LOAD_REPAIRED()
+
         'brand new special
 
         Dim bnj_special As New BNJewelry
@@ -107,6 +110,10 @@ Public Class frmJelCal
         Dim SETPreOwn_ As New BNJewelry
         SETPreOwn_.load_SetPreOwn()
 
+
+
+
+
         Me.Enabled = False
         For cnt = 2 To MaxEntries
             Try
@@ -133,7 +140,33 @@ Public Class frmJelCal
                     Dim isProposal As Boolean = False
                     Dim isSP_Auction As Boolean = False
 
+                    For Each Str As String In Repaired_.barcode_col
 
+                        If description.Contains(Str) Then
+
+
+                            If tmpgrams < 1.51 Then
+                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED LESS'"
+                                Dim ds As DataSet = LoadSQL(mySql)
+                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                SalePrice = (a * tmpgrams) * 2
+                                GoTo SalePriceHere
+
+                            Else
+                                Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED'"
+                                Dim ds As DataSet = LoadSQL(mySql)
+                                Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                SalePrice = (a * tmpgrams) * 2
+                                GoTo SalePriceHere
+                            End If
+
+
+
+                        End If
+
+
+
+                    Next
                     For Each Str As String In SETPreOwn_.barcode_col
                         If TmpBarCode.Contains(Str) Then
                             If tmpKarats = 21 Or tmpKarats = 20 Then
@@ -160,12 +193,6 @@ Public Class frmJelCal
                     Next
 
 
-                    If TmpBarCode.StartsWith("NGR") Or TmpBarCode.StartsWith("EGR") Then
-
-
-
-
-                    End If
 
                     'wedding proposal
 
