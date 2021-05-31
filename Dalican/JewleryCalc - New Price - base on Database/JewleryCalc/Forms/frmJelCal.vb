@@ -159,6 +159,14 @@ Public Class frmJelCal
                         End If
                     Next
 
+
+                    If TmpBarCode.StartsWith("NGR") Or TmpBarCode.StartsWith("EGR") Then
+
+
+
+
+                    End If
+
                     'wedding proposal
 
 
@@ -202,6 +210,7 @@ Public Class frmJelCal
                         GoTo SalePriceHere
 
                     End If
+
                     If karatclass = "P" Then
 
                         If TmpBarCode.Contains("JPN") Or TmpBarCode.Contains("JPCO") Then
