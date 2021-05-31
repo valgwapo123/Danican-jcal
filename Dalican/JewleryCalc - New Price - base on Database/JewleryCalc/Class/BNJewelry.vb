@@ -116,7 +116,21 @@
             _IsSpecial = IIf(.Item("IsSpecial") = 1, True, False)
         End With
     End Sub
+    Friend Sub LOAD_REPAIRED()
+        mysql = "select * from " & tbl & " where category = 'REPAIRED'"
+        Dim ds As DataSet = LoadSQL(mysql, tbl)
 
+        If ds.Tables(0).Rows.Count = 0 Then
+            Console.WriteLine("barcode not found")
+            Exit Sub
+        End If
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            loadbyRow(dr)
+            barcode_col.Add(_Barcode)
+
+        Next
+    End Sub
 
     Friend Sub loadSpecial()
         mysql = "select * from " & tbl & "  where isSpecial =1"
@@ -137,7 +151,7 @@
         Dim ds As DataSet = LoadSQL(mysql, tbl)
 
         If ds.Tables(0).Rows.Count = 0 Then
-            MsgBox("barcode Not found")
+            Console.WriteLine("barcode not found")
             Exit Sub
         End If
 
