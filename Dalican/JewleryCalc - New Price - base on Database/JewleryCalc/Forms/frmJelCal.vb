@@ -60,8 +60,8 @@ Public Class frmJelCal
         'Dim tmpJapan_B_C_class As String = ""
 
 
-        'Dim Repaired_ As New BNJewelry
-        'Repaired_.LOAD_REPAIRED()
+        Dim Repaired_ As New BNJewelry
+        Repaired_.LOAD_REPAIRED()
 
 
 
@@ -156,33 +156,33 @@ Public Class frmJelCal
                 Dim karatclass As String = oSheet.Cells(cnt, 13).value
                 Dim Subklass As String = oSheet.Cells(cnt, 14).value
 
-                'For Each Str As String In Repaired_.barcode_col
+                For Each Str As String In Repaired_.barcode_col
 
-                '    If description.Contains(Str) Then
-
-
-                '        If tmpgrams < 1.51 Then
-                '            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED LESS'"
-                '            Dim ds As DataSet = LoadSQL(mySql)
-                '            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-                '            SalePrice = (a * tmpgrams) * 2
-                '            GoTo SalePriceHere
-
-                '        Else
-                '            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED'"
-                '            Dim ds As DataSet = LoadSQL(mySql)
-                '            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-                '            SalePrice = (a * tmpgrams) * 2
-                '            GoTo SalePriceHere
-                '        End If
+                    If description.Contains(Str) Then
 
 
+                        If tmpgrams < 1.51 Then
+                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED LESS'"
+                            Dim ds As DataSet = LoadSQL(mySql)
+                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            SalePrice = (a * tmpgrams) * 2
+                            GoTo SalePriceHere
 
-                '    End If
+                        Else
+                            Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED'"
+                            Dim ds As DataSet = LoadSQL(mySql)
+                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            SalePrice = (a * tmpgrams) * 2
+                            GoTo SalePriceHere
+                        End If
 
 
 
-                'Next
+                    End If
+
+
+
+                Next
 
 
                 For Each Str As String In jcal_list.barcode_col

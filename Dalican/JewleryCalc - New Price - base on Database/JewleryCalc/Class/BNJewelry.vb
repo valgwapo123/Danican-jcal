@@ -126,7 +126,7 @@
         End If
 
         For Each dr As DataRow In ds.Tables(0).Rows
-            loadbyRow(dr)
+            loadbyRowx(dr)
             barcode_col.Add(_Barcode)
 
         Next
