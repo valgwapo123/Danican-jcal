@@ -161,6 +161,8 @@ Public Class frmJelCal
                     If description.Contains(Str) Then
 
 
+
+                        Console.WriteLine(description)
                         If tmpgrams < 1.51 Then
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED LESS'"
                             Dim ds As DataSet = LoadSQL(mySql)
