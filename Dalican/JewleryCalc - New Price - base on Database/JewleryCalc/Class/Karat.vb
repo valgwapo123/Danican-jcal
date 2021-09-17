@@ -183,9 +183,9 @@ Public Class Karat
 
         Dim isValidDesc As String = Description.Substring(Math.Max(0, Description.Length - 1))
         If isValidDesc <> "G" And isValidDesc <> "g" Then
-            If Not IsNumeric(isValidDesc) Then
-                Return 0.0
-            End If
+            'If Not IsNumeric(isValidDesc) Then
+            '    Return 0.0
+            'End If
         End If
 
         Description = CleanDescription(Description)
