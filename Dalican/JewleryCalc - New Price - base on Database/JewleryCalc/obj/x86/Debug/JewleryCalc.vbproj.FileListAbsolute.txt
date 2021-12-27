@@ -31,7 +31,6 @@ C:\Users\MISGWAPOHON\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Pri
 C:\Users\MISGWAPOHON\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.pdb
 C:\Users\MISGWAPOHON\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\JewleryCalc.xml
 C:\Users\MISGWAPOHON\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbprojAssemblyReference.cache
-C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbprojAssemblyReference.cache
 C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.frmBarcodeList.resources
 C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.frmbranch.resources
 C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.frmConsole.resources
@@ -49,3 +48,4 @@ C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - 
 C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\JewleryCalc.pdb
 C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\bin\Debug\JewleryCalc.xml
 C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbproj.CopyComplete
+C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbproj.AssemblyReference.cache
