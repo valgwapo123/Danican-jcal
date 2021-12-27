@@ -72,3 +72,4 @@ D:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - b
 D:\Users\GLENN\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.pdb
 =======
 >>>>>>> parent of f338cee (111)
+C:\Users\VAL-PC\Documents\GitHub\Danican-jcal\Dalican\JewleryCalc - New Price - base on Database\JewleryCalc\obj\x86\Debug\JewleryCalc.vbproj.AssemblyReference.cache

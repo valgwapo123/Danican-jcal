@@ -304,13 +304,26 @@ Public Class frmJelCal
                                 End If
 
                                 If Str = "SET" Then
+                                    Select Case tmpgrams
 
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                    Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                        Case < 1.51
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND less='1.5' AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
 
-                                    SalePrice = (a * tmpgrams) * 2
+                                            SalePrice = (a * tmpgrams) * 2
+
+                                        Case Else
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+
+                                            SalePrice = (a * tmpgrams) * 2
+
+
+                                    End Select
                                     GoTo SalePriceHere
+
                                 End If
                                 If Str = "SNO" Then
 
@@ -490,6 +503,10 @@ SalePriceHere:
             End With
 
         Next
+#Region "notuse"
+
+
+
 
         '        Me.Enabled = False
         '        For cnt = 2 To MaxEntries
@@ -1538,7 +1555,7 @@ SalePriceHere:
         'lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
         'tmpcls = "" : isOld = False
         'End With
-
+#End Region
         sfdPath.FileName = BRANCH.Text & Now.ToString("MMddyyyy")
         tmpSavePath = tmpSavePath & "/" & sfdPath.FileName
 
