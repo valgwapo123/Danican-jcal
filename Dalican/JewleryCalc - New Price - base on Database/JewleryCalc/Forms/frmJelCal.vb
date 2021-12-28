@@ -325,29 +325,6 @@ Public Class frmJelCal
                                     GoTo SalePriceHere
 
                                 End If
-
-
-                                If Str = "LM" Then
-                                    Select Case tmpgrams
-
-                                        Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND less='1.5' AND Category='LOCALLY MADE' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                            Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                            SalePrice = (a * tmpgrams) * 2
-
-                                        Case Else
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND Category='LOCALLY MADE' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
-                                            Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
-                                            SalePrice = (a * tmpgrams) * 2
-
-
-                                    End Select
-                                    GoTo SalePriceHere
-                                End If
                                 If Str = "SNO" Then
 
                                     Select Case tmpgrams
