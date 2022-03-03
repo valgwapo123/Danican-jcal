@@ -27,10 +27,9 @@
     Private Sub BtnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSave.Click
         If BtnSave.Text = "&Save" Then
             save()
-          
         Else
             UpdatePrice()
-           
+
         End If
     End Sub
 
@@ -52,8 +51,8 @@
             With SelectedClass
                 .CLassificaton = item.SubItems(1).Text
                 .Price = item.SubItems(2).Text
-                .lessthan = item.SubItems(3).Text
-                .greaterthan = item.SubItems(4).Text
+                .lessthan = IIf(String.IsNullOrEmpty(item.SubItems(3).Text), 0, item.SubItems(3).Text)
+                .greaterthan = IIf(String.IsNullOrEmpty(item.SubItems(4).Text), 0, item.SubItems(4).Text)
             End With
             If item.Text = "" Then Exit For
             ClassCol.Add(SelectedClass)
@@ -89,11 +88,11 @@
                 .ID = IIf(item.SubItems(0).Text = "", 0, item.SubItems(0).Text)
                 .CLassificaton = item.SubItems(1).Text
                 .Price = item.SubItems(2).Text
-                .lessthan = item.SubItems(3).Text
-                .greaterthan = item.SubItems(4).Text
+                .lessthan = IIf(String.IsNullOrEmpty(item.SubItems(3).Text), 0, item.SubItems(3).Text)
+                .greaterthan = IIf(String.IsNullOrEmpty(item.SubItems(4).Text), 0, item.SubItems(4).Text)
                 .Update()
             End With
-           
+
         Next
         lvList.Items.Clear() : txtCategory.Clear() : txtKarat.Clear() : BtnSave.Text = "&Save"
         MsgBox("Successfully updated.", MsgBoxStyle.Information)
@@ -146,4 +145,5 @@
     Private Sub frmConsole_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
     End Sub
+
 End Class

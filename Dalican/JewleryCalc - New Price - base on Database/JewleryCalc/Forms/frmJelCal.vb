@@ -1,4 +1,6 @@
-﻿Imports Microsoft.Office.Interop
+﻿Imports System.Runtime.InteropServices
+
+Imports Microsoft.Office.Interop
 
 Public Class frmJelCal
     Dim GRFile_ht As New Hashtable
@@ -113,23 +115,16 @@ Public Class frmJelCal
 
         For cnt = 2 To MaxEntries
 
-            'Dim JewTmp As New Karat
-            'Dim tmpClass As New Classes
-            ''With JewTmp
-            'OLD = oSheet.Cells(cnt, 11).value
 
-            ''If OLD <> "YES" Then
-            ''    isOld = True
-            ''End If
 
             Dim JewTmp As New Karat
             Dim tmpClass As New Classes
             With JewTmp
-                OLD = oSheet.Cells(cnt, 11).value
+                OLD = IIf(oSheet.Cells(cnt, 11).value.ToString <> "YES", True, False)
 
-                If OLD <> "YES" Then
-                    isOld = True
-                End If
+                'If OLD <> "YES" Then
+                '    isOld = True
+                'End If
 
                 Dim TmpBarCode As String = oSheet.Cells(cnt, 10).value
                 Console.WriteLine("Description:" & oSheet.Cells(cnt, 3).value)
@@ -146,13 +141,29 @@ Public Class frmJelCal
                         If tmpgrams < 1.51 Then
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED LESS'"
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double
+                            For Each row As DataRow In ds.Tables(0).Rows
+                                a = CDbl(row.Item("PRICE"))
+                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                            Next
+
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
                         Else
                             Dim mySql As String = "SELECT * FROM TBLKARAT INNER JOIN TBLCLASS ON TBLCLASS.KARATID=TBLKARAT.KARATID  WHERE TBLKARAT.KARAT = " & tmpKarats & "  and TBLKARAT.CATEGORY='REPAIRED'"
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double
+                            For Each row As DataRow In ds.Tables(0).Rows
+                                If tmpgrams >= 10 Then
+                                    a = CDbl(row.Item("PRICE"))
+                                    Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                    Exit For
+                                Else
+                                    a = CDbl(row.Item("PRICE"))
+                                    Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                    Exit For
+                                End If
+                            Next
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
                         End If
@@ -173,19 +184,25 @@ Public Class frmJelCal
                                     Select Case tmpgrams
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   less='1.5' AND Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  (less='1.5' AND Greater='0')  AND Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
 
                                         Case Else
 
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE    less='0' AND Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  (less='0' AND Greater='0') AND Class= 'N' AND  Category='Brand New Special' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
 
@@ -198,19 +215,25 @@ Public Class frmJelCal
                                     Select Case tmpgrams
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND Less='1.5' AND Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND (less='1.5' AND Greater='0') AND Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
 
                                         Case Else
 
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  Class= 'N' AND (less='0' AND Greater='0') AND  Category='Brand New With Stone' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
 
@@ -222,8 +245,11 @@ Public Class frmJelCal
 
                                     Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= 'N' AND  Category='Brand New Japan' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                     Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
+                                    Dim a As Double
+                                    For Each row As DataRow In ds.Tables(0).Rows
+                                        a = CDbl(row.Item("PRICE"))
+                                        Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                    Next
                                     SalePrice = (a * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 End If
@@ -232,8 +258,11 @@ Public Class frmJelCal
 
                                     Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                     Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
+                                    Dim a As Double
+                                    For Each row As DataRow In ds.Tables(0).Rows
+                                        a = CDbl(row.Item("PRICE"))
+                                        Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                    Next
                                     SalePrice = (a * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 End If
@@ -246,10 +275,14 @@ Public Class frmJelCal
                                         Subklass = "N"
                                     End If
 
-                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= '" & Subklass & "' AND Less='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                    Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE   Class= '" & Subklass & "' AND (less='0' AND Greater='0') AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                     Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                    Dim a As Double
+                                    For Each row As DataRow In ds.Tables(0).Rows
+                                        a = CDbl(row.Item("PRICE"))
+                                        Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                    Next
                                     SalePrice = (a * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 End If
@@ -264,8 +297,12 @@ Public Class frmJelCal
 
                                         Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  Less=" & less & " AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
-                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                        Dim a As Double
+                                        For Each row As DataRow In ds.Tables(0).Rows
+                                            a = CDbl(row.Item("PRICE"))
+                                            Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                        Next
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
 
@@ -281,8 +318,12 @@ Public Class frmJelCal
 
                                         Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "' AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
-                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                        Dim a As Double
+                                        For Each row As DataRow In ds.Tables(0).Rows
+                                            a = CDbl(row.Item("PRICE"))
+                                            Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                        Next
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
 
@@ -297,8 +338,12 @@ Public Class frmJelCal
 
                                     Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  Category='Auction Japan' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                     Dim ds As DataSet = LoadSQL(mySql)
-                                    Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                    Dim a As Double
+                                    For Each row As DataRow In ds.Tables(0).Rows
+                                        a = CDbl(row.Item("PRICE"))
+                                        Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                    Next
                                     SalePrice = (a * tmpgrams) * 2
                                     GoTo SalePriceHere
                                 End If
@@ -307,19 +352,37 @@ Public Class frmJelCal
                                     Select Case tmpgrams
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND less='1.5' AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND (less='1.5' AND Greater='0') AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
+                                            SalePrice = (a * tmpgrams) * 2
+
+                                        Case >= 10
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND (less='0' AND Greater='10') AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim ds As DataSet = LoadSQL(mySql)
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
 
                                         Case Else
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND (less='0' AND Greater='0') AND Category='Auction Set' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
-
 
                                     End Select
                                     GoTo SalePriceHere
@@ -331,19 +394,25 @@ Public Class frmJelCal
                                     Select Case tmpgrams
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND less='1.5' AND Category='LOCALLY MADE' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND (less='1.5' AND Greater='0') AND Category='LOCALLY MADE' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
-
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
 
                                         Case Else
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND Category='LOCALLY MADE' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND (less='0' AND Greater='0') AND Category='LOCALLY MADE' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
-
 
                                     End Select
                                     GoTo SalePriceHere
@@ -355,27 +424,39 @@ Public Class frmJelCal
                                     Select Case tmpgrams
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='1.5'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  (less='1.5' AND Greater='0')  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
                                         Case >= 10
 
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  Greater='10'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  (less='0' AND Greater='10')  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
 
                                         Case Else
 
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='0'  AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  (less='0' AND Greater='0') AND  Category='Auction With Stone' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
                                     End Select
@@ -387,26 +468,38 @@ Public Class frmJelCal
                                     Select Case tmpgrams
 
                                         Case < 1.51
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='1.5'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  (less='1.5' AND Greater='0')  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
 
                                         Case >= 10
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  Greater='10'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  (less='0' AND Greater='10')  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
                                         Case Else
 
-                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  less='0'  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
+                                            Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE  KARAT = " & tmpKarats & " AND  (less='0' AND Greater='0')  AND  Category='SPP AUCTION' AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                             Dim ds As DataSet = LoadSQL(mySql)
-                                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                            Dim a As Double
+                                            For Each row As DataRow In ds.Tables(0).Rows
+                                                a = CDbl(row.Item("PRICE"))
+                                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                            Next
                                             SalePrice = (a * tmpgrams) * 2
                                             GoTo SalePriceHere
                                     End Select
@@ -419,23 +512,35 @@ Public Class frmJelCal
 
                                         Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='1.51' AND Greater='9.99' AND KARAT = " & tmpKarats & "  AND  BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
-                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                        Dim a As Double
+                                        For Each row As DataRow In ds.Tables(0).Rows
+                                            a = CDbl(row.Item("PRICE"))
+                                            Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                        Next
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
 
                                     Case >= 10
                                         Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='0' AND Greater='10' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
-                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                        Dim a As Double
+                                        For Each row As DataRow In ds.Tables(0).Rows
+                                            a = CDbl(row.Item("PRICE"))
+                                            Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                        Next
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
                                     Case < 1.51
                                         Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Auction' AND Less='1.5' AND Greater='0' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
-                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                        Dim a As Double
+                                        For Each row As DataRow In ds.Tables(0).Rows
+                                            a = CDbl(row.Item("PRICE"))
+                                            Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                        Next
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
 
@@ -443,8 +548,12 @@ Public Class frmJelCal
 
                                         Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "' AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  AND BARCODE  = '" & Str & "'and BRANCH_ID=  " & branchid & ""
                                         Dim ds As DataSet = LoadSQL(mySql)
-                                        Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                                        Dim a As Double
+                                        For Each row As DataRow In ds.Tables(0).Rows
+                                            a = CDbl(row.Item("PRICE"))
+                                            Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE") & vbCrLf & Str)
 
+                                        Next
                                         SalePrice = (a * tmpgrams) * 2
                                         GoTo SalePriceHere
                                 End Select
@@ -453,8 +562,8 @@ Public Class frmJelCal
 
                         End If
                     Catch ex As Exception
-                        MessageBox.Show(oSheet.Cells(cnt, 2).value)
-
+                        'MessageBox.Show(oSheet.Cells(cnt, 2).value)
+                        Console.WriteLine(ex.Message & " - " & oSheet.Cells(cnt, 2).value)
                     End Try
 
                 Next
@@ -466,23 +575,35 @@ Public Class frmJelCal
 
                             Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='1.51' AND Greater='9.99' AND KARAT = " & tmpKarats & "  AND  BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double
+                            For Each row As DataRow In ds.Tables(0).Rows
+                                a = CDbl(row.Item("PRICE"))
+                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE"))
 
+                            Next
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
 
                         Case >= 10
                             Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='0' AND Greater='10' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double
+                            For Each row As DataRow In ds.Tables(0).Rows
+                                a = CDbl(row.Item("PRICE"))
+                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE"))
 
+                            Next
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
                         Case < 1.51
                             Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Category='Reg-Auction' AND Less='1.5' AND Greater='0' AND KARAT = " & tmpKarats & " and BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double
+                            For Each row As DataRow In ds.Tables(0).Rows
+                                a = CDbl(row.Item("PRICE"))
+                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE"))
 
+                            Next
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
 
@@ -491,8 +612,12 @@ Public Class frmJelCal
                             ''AUCTION REG
                             Dim mySql As String = "SELECT * FROM JCAL_LIST  WHERE Class= '" & Subklass & "'AND Category='Reg-Auction'  AND Less='0' AND Greater='0' AND KARAT = " & tmpKarats & "  and BRANCH_ID=  " & branchid & ""
                             Dim ds As DataSet = LoadSQL(mySql)
-                            Dim a As Double = CDbl(ds.Tables(0).Rows(0).Item("PRICE"))
+                            Dim a As Double
+                            For Each row As DataRow In ds.Tables(0).Rows
+                                a = CDbl(row.Item("PRICE"))
+                                Console.WriteLine(row.Item("CATEGORY") & " - " & row.Item("PRICE"))
 
+                            Next
                             SalePrice = (a * tmpgrams) * 2
                             GoTo SalePriceHere
                     End Select
@@ -528,10 +653,8 @@ SalePriceHere:
             End With
 
         Next
+
 #Region "notuse"
-
-
-
 
         '        Me.Enabled = False
         '        For cnt = 2 To MaxEntries
@@ -1580,7 +1703,9 @@ SalePriceHere:
         'lblstatus.Text = String.Format("{0}%", ((pbstatus.Value / pbstatus.Maximum) * 100).ToString("F2"))
         'tmpcls = "" : isOld = False
         'End With
+
 #End Region
+
         sfdPath.FileName = BRANCH.Text & Now.ToString("MMddyyyy")
         tmpSavePath = tmpSavePath & "/" & sfdPath.FileName
 
@@ -1589,19 +1714,16 @@ SalePriceHere:
         isDone = True
 
         oWB1.SaveAs(tmpSavePath)
-        oSheet1 = Nothing
         oWB1.Close(False)
-        oWB1 = Nothing
         oXL1.Quit()
-        oXL1 = Nothing
-
 unloadObj:
         'Memory Unload
-        oSheet = Nothing
-        oWB = Nothing
         oXL.Quit()
-        oXL = Nothing
-
+        ReleaseObject(oWB1)
+        ReleaseObject(oSheet)
+        ReleaseObject(oSheet1)
+        ReleaseObject(oXL)
+        ReleaseObject(oXL1)
         fileName = ""
         sfdPath.FileName = ""
         ofdJeltmp.FileName = ""
@@ -1611,6 +1733,19 @@ unloadObj:
             If MsgBox("Successful generated", MsgBoxStyle.OkOnly + MsgBoxStyle.Information,
             "Generate...") = MsgBoxResult.Ok Then pbstatus.Minimum = 0 : pbstatus.Value = 0 : lblstatus.Text = "0.00%"
         End If
+    End Sub
+
+    Private Sub ReleaseObject(obj As Object)
+        Try
+            If obj IsNot Nothing Then
+                Marshal.ReleaseComObject(obj)
+                obj = Nothing
+            End If
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        Finally
+            GC.Collect()
+        End Try
     End Sub
 
     Private Sub frmJelCal_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -1819,4 +1954,11 @@ unloadObj:
 
     End Sub
 
+    Private Sub frmJelCal_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Application.Exit()
+    End Sub
+
+    Private Sub frmJelCal_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Application.ExitThread()
+    End Sub
 End Class
